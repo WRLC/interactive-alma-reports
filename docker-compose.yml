@@ -1,0 +1,25 @@
+services:
+  interactive_alma_reports:
+    build: .
+    container_name: interactive_alma_reports
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - ~/.gitconfig:/etc/gitconfig
+      - ./xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      - ./error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.interactive_alma_reports.rule=Host(`interactive-alma-reports.wrlc.localhost`)"
+      - "traefik.http.routers.interactive_alma_reports.tls=true"
+      - "traefik.http.routers.interactive_alma_reports.entrypoints=websecure"
+    networks:
+      - proxy
+
+secrets:
+  user_ssh_key:
+    file: ~/.ssh/id_rsa
+
+networks:
+  proxy:
+    external: true

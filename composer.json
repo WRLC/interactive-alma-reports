@@ -1,0 +1,8 @@
+{
+    "name": "wrlc/interactive-alma-reports",
+    "type": "project",
+    "minimum-stability": "stable",
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
