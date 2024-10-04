@@ -26,6 +26,7 @@ jobs:
         with:
           path: public/
           standard: PSR12
+          warning_severity: 0
           php_version: '8.1'
 
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CLS Loans per Institution by Date Range
  * php version 8.1
@@ -9,6 +10,7 @@
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://github.com/WRLC/interactive-alma-reports/docs/files/public-date-cls.html Documentation
  */
+
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Dotenv\Dotenv;
@@ -79,7 +81,7 @@ $xml_data = false;
                     if (isset($_GET['start_date']) && isset($_GET['end_date'])) {
                         $start_date = htmlspecialchars($_GET['start_date']);
                         $end_date = htmlspecialchars($_GET['end_date']);
-                        $url = "https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=/shared/Washington%20Research%20Library%20Consortium%20(WRLC)%20Network/Reports/API/API%20rpt_clslibx%20by%20date%20range&limit=1000&col_names=true&apikey=".$api_key_interactive."&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E" . $start_date . "%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E" . $end_date . "%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E";
+                        $url = "https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=/shared/Washington%20Research%20Library%20Consortium%20(WRLC)%20Network/Reports/API/API%20rpt_clslibx%20by%20date%20range&limit=1000&col_names=true&apikey=" . $api_key_interactive . "&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E" . $start_date . "%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E" . $end_date . "%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E";
                         $xml_data = file_get_contents($url);
 
                         if ($xml_data !== false) {
