@@ -1,4 +1,4 @@
-name: Request reviews on PRs
+name: Actions on PR open
 
 on:
   pull_request:
@@ -9,6 +9,18 @@ jobs:
   request:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+
+      - uses: php-actions/composer@v6
+        with:
+          php_version: '8.1'
+
+      - name: PHPStan static analysis
+        uses: php-actions/phpstan@v3
+        with:
+          path: public/
+          php_version: '8.1'
+
       - name: Check user for team affiliation
         uses: tspascoal/get-user-teams-membership@v3
         id: teamAffiliation
@@ -16,10 +28,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.READ_ORG_TOKEN }}
           username: ${{ github.actor }}
           team: ${{ vars.ADMIN_TEAM }}
-
-      - name: Output team affiliation
-        run: |
-          echo "Is team member: ${{ steps.teamAffiliation.outputs.isTeamMember }}" 
 
       - name: Request reviews on opened PRs
         if: ${{ steps.teamAffiliation.outputs.isTeamMember == 'false' }}
