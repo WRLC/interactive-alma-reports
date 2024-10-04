@@ -1,5 +1,5 @@
 ---
-name: Simple issue template
+name: Simple issue
 about: Basic issue
 title: ''
 labels: ''
