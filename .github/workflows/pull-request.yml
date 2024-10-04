@@ -1,0 +1,27 @@
+name: Request reviews on PRs
+
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check user for team affiliation
+        uses: tspascoal/get-user-team-membership@v3
+        id: teamAffiliation
+        with:
+          GITHUB_TOKEN: ${{ secrets.READ_ORG_TOKEN }}
+          username: ${{ github.actor }}
+          team: env.ADMIN_TEAM
+
+      - name: Request reviews on opened PRs
+        if: ${{ steps.teamAffiliation.outputs.isTeamMember == 'false' }}
+        uses: hkusu/review-assign-action@v1
+        with:
+          assignees: ${{ env.REVIEWERS }}
+          reviewers: ${{ env.REVIEWERS }}
+          max-num-of-reviewers: 1
+
