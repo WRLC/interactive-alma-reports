@@ -1,0 +1,21 @@
+name: PHPMD
+
+on: push
+
+jobs:
+  phpmd:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: php-actions/composer@v6
+        with:
+          php_version: 8.1
+
+      - name: PHP Mess Detector
+        uses: php-actions/phpmd@v1
+        with:
+          php_version: 8.1
+          path: public/
+          output: text
+          ruleset: cleancode,codesize,controversial,design,naming,unusedcode

@@ -1,4 +1,4 @@
-name: Actions on PR open
+name: Pull Request Review
 
 on:
   pull_request:
@@ -56,4 +56,3 @@ jobs:
           assignees: ${{ vars.REVIEWERS }}
           reviewers: ${{ vars.REVIEWERS }}
           max-num-of-reviewers: 1
-
