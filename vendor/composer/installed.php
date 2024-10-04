@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'wrlc/interactive-alma-reports',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '60bf970191c237ab03ca758cef9f4f8099ec2d36',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -27,6 +27,15 @@
             'install_path' => __DIR__ . '/../phpoption/phpoption',
             'aliases' => array(),
             'dev_requirement' => false,
+        ),
+        'phpstan/phpstan' => array(
+            'pretty_version' => '1.12.5',
+            'version' => '1.12.5.0',
+            'reference' => '7e6c6cb7cecb0a6254009a1a8a7d54ec99812b17',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpstan/phpstan',
+            'aliases' => array(),
+            'dev_requirement' => true,
         ),
         'symfony/polyfill-ctype' => array(
             'pretty_version' => 'v1.31.0',
@@ -65,9 +74,9 @@
             'dev_requirement' => false,
         ),
         'wrlc/interactive-alma-reports' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '60bf970191c237ab03ca758cef9f4f8099ec2d36',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
