@@ -1,16 +1,26 @@
 <?php
-    require_once dirname(__DIR__) . '/vendor/autoload.php';
+/**
+ * CLS Loans per Institution by Date Range
+ * php version 8.1
+ *
+ * @category Alma
+ * @package  WRLC
+ * @author   Joel Shields <shields@wrlc.org>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     https://github.com/WRLC/interactive-alma-reports/docs/files/public-date-cls.html Documentation
+ */
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-    use Dotenv\Dotenv;
+use Dotenv\Dotenv;
 
-    $dotenv = Dotenv::createImmutable(dirname(__DIR__));
-    $dotenv->safeLoad();
+$dotenv = Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->safeLoad();
 
-    // Get the API key from the environment
-    $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
+// Get the API key from the environment
+$api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
 
-    // Initialize the XML data as false
-    $xml_data = false;
+// Initialize the XML data as false
+$xml_data = false;
 ?>
 
 <!DOCTYPE html>
@@ -34,21 +44,21 @@
                     if (isset($_GET['start_date']) && isset($_GET['end_date'])) {
                         $start_date = htmlspecialchars($_GET['start_date']);
                         $end_date = htmlspecialchars($_GET['end_date']);
-                    ?>
+                        ?>
                         <div class="row offset-md-2">
                             <div class="mb-3 col-md-6" style="max-width: 200px;">
                                 <label for="start_date" class="form-label">Start Date</label>
-                                <input type="date" class="form-control" id="start_date" value="<?= $start_date ?>" name="start_date" required>
+                                <input type="date" class="form-control" id="start_date" value="<?php echo $start_date ?>" name="start_date" required>
                             </div>
                         
                             <div class="mb-3 col-md-6" style="max-width: 200px;">
                                 <label for="end_date" class="form-label">End Date</label>
-                                <input type="date" class="form-control" id="end_date" value="<?= $end_date ?>" name="end_date" required>
+                                <input type="date" class="form-control" id="end_date" value="<?php echo $end_date ?>" name="end_date" required>
                             </div>
                         </div>
-                    <?php
+                        <?php
                     } else {
-                    ?>
+                        ?>
                         <div class="row offset-md-2">
                             <div class="mb-3 col-md-6" style="max-width: 200px;">
                                 <label for="start_date" class="form-label">Start Date</label>
@@ -60,7 +70,7 @@
                                 <input type="date" class="form-control" id="end_date" name="end_date" required>
                             </div>
                         </div>
-                    <?php
+                        <?php
                     }
 
                     $distinct_column3 = []; // to store unique values for the dropdown
@@ -92,13 +102,13 @@
                         <select class="form-select" id="filter_column3" name="filter_column3">
                             <?php
                             if (isset($_GET['filter_column3']) && $_GET['filter_column3'] != '') {
-                            ?>
-                                <option value="<?= $_GET['filter_column3'] ?>" selected =""><?= $_GET['filter_column3'] ?></option>
-                            <?php
+                                ?>
+                                <option value="<?php echo $_GET['filter_column3'] ?>" selected =""><?php echo $_GET['filter_column3'] ?></option>
+                                <?php
                             } else {
-                            ?>
+                                ?>
                                 <option value="" selected="">All Institutions</option>
-                            <?php
+                                <?php
                             }
                             ?>
                             <option value="American University">American University</option>
@@ -125,17 +135,17 @@
                     $start_date = htmlspecialchars($_GET['start_date']);
                     $end_date = htmlspecialchars($_GET['end_date']);
                     $filter_column3 = isset($_GET['filter_column3']) ? htmlspecialchars($_GET['filter_column3']) : '';
-                ?>
-                <h4 class='mt-5 text-center'>Results for Date Range: <?= $start_date ?> to <?= $end_date ?>
+                    ?>
+                <h4 class='mt-5 text-center'>Results for Date Range: <?php echo $start_date ?> to <?php echo $end_date ?>
 
-                <?php
-                if (isset($_GET['filter_column3']) and $_GET['filter_column3'] != '') {
-                    $university_filter = htmlspecialchars($_GET['filter_column3']);
-                ?>
-                    for <?= $university_filter ?>
-                <?php
-                }
-                ?>
+                    <?php
+                    if (isset($_GET['filter_column3']) and $_GET['filter_column3'] != '') {
+                        $university_filter = htmlspecialchars($_GET['filter_column3']);
+                        ?>
+                    for <?php echo $university_filter ?>
+                        <?php
+                    }
+                    ?>
                 </h4>
                 <table class='table table-bordered table-hover'>
                     <thead>
@@ -169,30 +179,30 @@
                                     } else {
                                         $column3_display = ''; // Leave empty if it's already displayed
                                     }
-                    ?>
+                                    ?>
                         <tr>
-                            <td><strong><?= $column3_display ?></strong></td>
-                            <td><?= $row->Column2 ?></td>
-                            <td><?= $row->Column1 ?></td>
-                            <td class='text-end'><?= number_format($loans) ?></td>
+                            <td><strong><?php echo $column3_display ?></strong></td>
+                            <td><?php echo $row->Column2 ?></td>
+                            <td><?php echo $row->Column1 ?></td>
+                            <td class='text-end'><?php echo number_format($loans) ?></td>
                         </tr>
-                    <?php
+                                    <?php
                                 }
                             }
                             // Display the total loans
-                    ?>
+                            ?>
                         <tr>
                             <td><strong>Total:</strong></td>
-                            <td colspan='3' class='text-end'><strong><?= number_format($total_loans) ?></strong></td>
+                            <td colspan='3' class='text-end'><strong><?php echo number_format($total_loans) ?></strong></td>
                         </tr>
-                    <?php
+                            <?php
                         }
                     }
                     ?>
 
                     </tbody>
                 </table>
-                <?php
+                    <?php
                 }
                 ?>
             </div>
