@@ -15,7 +15,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.READ_ORG_TOKEN }}
           username: ${{ github.actor }}
-          team: ${{ env.ADMIN_TEAM }}
+          team: ${{ vars.ADMIN_TEAM }}
 
       - name: Output team affiliation
         run: |
@@ -25,7 +25,7 @@ jobs:
         if: ${{ steps.teamAffiliation.outputs.isTeamMember == 'false' }}
         uses: hkusu/review-assign-action@v1
         with:
-          assignees: ${{ env.REVIEWERS }}
-          reviewers: ${{ env.REVIEWERS }}
+          assignees: ${{ vars.REVIEWERS }}
+          reviewers: ${{ vars.REVIEWERS }}
           max-num-of-reviewers: 1
 
