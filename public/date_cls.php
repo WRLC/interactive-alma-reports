@@ -1,16 +1,26 @@
 <?php
-    require_once dirname(__DIR__) . '/vendor/autoload.php';
+/**
+ * CLS Loans per Institution by Date Range
+ * php version 8.1
+ *
+ * @category Alma
+ * @package  WRLC
+ * @author   Joel Shields <shields@wrlc.org>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     https://github.com/WRLC/interactive-alma-reports/docs/files/public-date-cls.html Documentation
+ */
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-    use Dotenv\Dotenv;
+use Dotenv\Dotenv;
 
-    $dotenv = Dotenv::createImmutable(dirname(__DIR__));
-    $dotenv->safeLoad();
+$dotenv = Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->safeLoad();
 
-    // Get the API key from the environment
-    $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
+// Get the API key from the environment
+$api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
 
-    // Initialize the XML data as false
-    $xml_data = false;
+// Initialize the XML data as false
+$xml_data = false;
 ?>
 
 <!DOCTYPE html>
