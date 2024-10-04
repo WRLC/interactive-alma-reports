@@ -13,13 +13,13 @@ jobs:
 
       - uses: php-actions/composer@v6
         with:
-          php_version: '8.1'
+          php_version: 8.1
 
       - name: PHPStan
         uses: php-actions/phpstan@v3
         with:
           path: public/
-          php_version: '8.1'
+          php_version: 8.1
 
       - name: PHP Code Sniffer
         uses: php-actions/phpcs@v1
@@ -27,7 +27,15 @@ jobs:
           path: public/
           standard: PSR12
           warning_severity: 0
-          php_version: '8.1'
+          php_version: 8.1
+
+      - name: PHP Mess Detector
+        uses: php-actions/phpmd@v1
+        with:
+          php_version: 8.1
+          path: public/
+          output: text
+          ruleset: cleancode,codesize,controversial,design,naming,unusedcode
 
 
   pull-request-review:
