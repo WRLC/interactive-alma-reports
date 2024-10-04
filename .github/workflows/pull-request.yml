@@ -15,7 +15,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.READ_ORG_TOKEN }}
           username: ${{ github.actor }}
-          team: env.ADMIN_TEAM
+          team: ${{ env.ADMIN_TEAM }}
 
       - name: Output team affiliation
         run: |
