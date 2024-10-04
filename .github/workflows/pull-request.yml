@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check user for team affiliation
-        uses: tspascoal/get-user-team-membership@v3
+        uses: tspascoal/get-user-teams-membership@v3
         id: teamAffiliation
         with:
           GITHUB_TOKEN: ${{ secrets.READ_ORG_TOKEN }}
