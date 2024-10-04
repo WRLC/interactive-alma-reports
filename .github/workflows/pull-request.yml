@@ -17,6 +17,10 @@ jobs:
           username: ${{ github.actor }}
           team: env.ADMIN_TEAM
 
+      - name: Output team affiliation
+        run: |
+          echo "Is team member: ${{ steps.teamAffiliation.outputs.isTeamMember }}" 
+
       - name: Request reviews on opened PRs
         if: ${{ steps.teamAffiliation.outputs.isTeamMember == 'false' }}
         uses: hkusu/review-assign-action@v1
