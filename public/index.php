@@ -53,7 +53,7 @@ function stringBetweenTwoStrings(string $str, string $start, string $end): strin
                             $files = scandir('.');
                             $links = [];
                             foreach ($files as $file) {
-                                if (str_contains($file, '.php') && $file != 'index.php') {
+                                if (strpos($file, '.php') !== false && $file != 'index.php') {
                                     $doc = token_get_all(file_get_contents($file))[2][1];
                                     $title = stringBetweenTwoStrings($doc, '/** * ', ' * php version');
                                     $links[$title] = $file;
