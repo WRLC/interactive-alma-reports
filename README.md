@@ -6,13 +6,16 @@
 
 Interactive reports utilizing Alma APIs
 
-# Local Development
+## Local Development
 
-## Dependencies
+### Dependencies
 
-* Docker Desktop
+* [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+* [WRLC/local-dev-traefik](https://github.com/WRLC/local-dev-traefik) reverse proxy (for local networking of Docker containers)
+* Local SSH key for git functionality in the PHP container (`~/.ssh/id_rsa`)
+* Local git configuration file for git functionality in the PHP container (`~/.gitconfig`)
 
-## Getting Started
+### Getting Started
 
 1. Clone the repository:
     ```bash
@@ -32,9 +35,9 @@ Interactive reports utilizing Alma APIs
     cp .env.template .env
     ```
 5. Replace the placeholder `API_KEY_INTERACTIVE` value in the .env file with a working Alma API key.
-6. Visit the application in your browser at `https://interactive-alma-reports.wrlc.localhost`
+6. Visit the application in your browser at [https://interactive-alma-reports.wrlc.localhost](https://interactive-alma-reports.wrlc.localhost)
 
-## Running Tests
+### Running Tests
 
 Whenever code is pushed to Github, several automated code scans are performed on files in the `/public` folder (the application's web root). To ensure the code will pass these scans, you can run them locally before pushing code to Github:
 
@@ -44,7 +47,7 @@ Whenever code is pushed to Github, several automated code scans are performed on
 
 Among other things, these scans expect the code to be properly indented, have no unused variables, include file/class/function docblocks, and follow the PSR-12 coding standard.
 
-## Adding Reports
+### Adding Reports
 
 To add a new report to the application, create a new PHP file in the `/public` folder.
 
