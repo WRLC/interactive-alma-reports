@@ -49,7 +49,7 @@ function stringBetweenTwoStrings(string $str, string $start, string $end): strin
                     <div class="card-body">
                         <div class="list-group">
                             <?php
-                            $files = scandir(__DIR__);
+                            $files = scandir('.');
                             $links = [];
                             foreach ($files as $file) {
                                 if (str_contains($file, '.php') && $file != 'index.php') {
@@ -62,7 +62,7 @@ function stringBetweenTwoStrings(string $str, string $start, string $end): strin
                             foreach ($links as $title => $link) {
                                 ?>
 
-                                <a href='/<?php echo $link ?>' class='list-group-item list-group-item-action'><?php echo $title ?></a>
+                                <a href='<?php echo $link ?>' class='list-group-item list-group-item-action'><?php echo $title ?></a>
                                 <?php
                             }
                             ?>
