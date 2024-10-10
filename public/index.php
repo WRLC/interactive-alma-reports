@@ -62,7 +62,7 @@ function stringBetweenTwoStrings(string $str, string $start, string $end): strin
                             foreach ($links as $title => $link) {
                                 ?>
 
-                                <a href='/<?php echo $link ?>' class='list-group-item list-group-item-action'><?php echo $title ?> - <?php echo $link ?></a>
+                                <a href='/<?php echo $link ?>' class='list-group-item list-group-item-action'><?php echo $title ?></a>
                                 <?php
                             }
                             ?>
