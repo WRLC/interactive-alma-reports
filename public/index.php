@@ -27,8 +27,6 @@ function stringBetweenTwoStrings(string $str, string $start, string $end): strin
     return substr($str, $substringStart, $size);
 }
 
-$currentDir = dirname(__DIR__);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,7 +50,7 @@ $currentDir = dirname(__DIR__);
                     <div class="card-body">
                         <div class="list-group">
                             <?php
-                            $files = scandir($currentDir . '/public');
+                            $files = scandir('.');
                             $links = [];
                             foreach ($files as $file) {
                                 if (str_contains($file, '.php') && $file != 'index.php') {
