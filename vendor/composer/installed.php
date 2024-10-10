@@ -3,7 +3,7 @@
         'name' => 'wrlc/interactive-alma-reports',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '2dfd6849b199a32413091863032bfddd055a32bd',
+        'reference' => 'a5867ec58233030820df112c79ab62ccc2f05d4d',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -205,7 +205,7 @@
         'wrlc/interactive-alma-reports' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '2dfd6849b199a32413091863032bfddd055a32bd',
+            'reference' => 'a5867ec58233030820df112c79ab62ccc2f05d4d',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
