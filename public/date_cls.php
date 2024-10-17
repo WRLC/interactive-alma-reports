@@ -32,15 +32,40 @@ $xml_data = false;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Date Range Form</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 </head>
 
 <body>
+<?php
+// API URL
+$url = "https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=/shared/Washington%20Research%20Library%20Consortium%20(WRLC)%20Network/Reports/API/API%20rpt_clslibx%20by%20date%20range&limit=1000&col_names=true&apikey=" . $api_key_interactive . "&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E" . $start_date . "%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E" . $end_date . "%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E";
+                        
+// Parse the URL to extract the query string
+$parsed_url = parse_url($url);
+parse_str($parsed_url['query'], $query_params);
+
+// Get the 'path' parameter and decode it for display
+$path_value = urldecode($query_params['path']);
+
+// Display the report path it as an <h2>
+
+echo '<p>
+  <button class="btn btn-info btn-sm mt-3 ml-5" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Report Info
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body"><p><strong>Analytics Path:</strong> 
+   '. htmlspecialchars($path_value) .'</p>';
+  // <p><a class="btn mt-3 btn-sm btn-info" style="width:60px;" target="_blank" href="'.$url.'">XML</a></p>
+ echo ' </div>
+</div>';
+?>
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <h4 class="text-center">CLS Loans per Institution by Date Range</h4>
-                <form method="get" class="alert alert-primary text-center" style="padding:20px;" action="">
+                <form method="get" class="alert alert-primary text-center" id="dateForm" style="padding:20px;" action="">
 
                     <?php
                     if (isset($_GET['start_date']) && isset($_GET['end_date'])) {
@@ -81,7 +106,7 @@ $xml_data = false;
                     if (isset($_GET['start_date']) && isset($_GET['end_date'])) {
                         $start_date = htmlspecialchars($_GET['start_date']);
                         $end_date = htmlspecialchars($_GET['end_date']);
-                        $url = "https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=/shared/Washington%20Research%20Library%20Consortium%20(WRLC)%20Network/Reports/API/API%20rpt_clslibx%20by%20date%20range&limit=1000&col_names=true&apikey=" . $api_key_interactive . "&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E" . $start_date . "%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E" . $end_date . "%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E";
+                        //  $url = "https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=/shared/Washington%20Research%20Library%20Consortium%20(WRLC)%20Network/Reports/API/API%20rpt_clslibx%20by%20date%20range&limit=1000&col_names=true&apikey=" . $api_key_interactive . "&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E" . $start_date . "%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E" . $end_date . "%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E";
                         $xml_data = file_get_contents($url);
 
                         if ($xml_data !== false) {
@@ -101,7 +126,7 @@ $xml_data = false;
                     <!-- Dropdown to filter Column3 -->
                     <div class="mb-3 offset-md-4" style="width: 200px;">
                         <label for="filter_column3" class="form-label">Filter by Lending Institution</label>
-                        <select class="form-select" id="filter_column3" name="filter_column3">
+                        <select class="form-control" id="filter_column3" name="filter_column3">
                             <?php
                             if (isset($_GET['filter_column3']) && $_GET['filter_column3'] != '') {
                                 ?>
@@ -131,6 +156,24 @@ $xml_data = false;
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <a href="date_cls.php" class="btn btn-danger">Clear</a>
                 </form>
+
+
+
+<!-- Spinner section, initially hidden -->
+<div class="row justify-content-center text-center mt-4" id="loadingSpinner" style="display:none;">
+            <div class=" text-center justify-content-center">
+                <div class="spinner-border mt-1  text-primary text-center" role="status">
+                    <span class="visually-hidden"></span>
+                </div>
+                <p>Loading data, please wait...</p>
+            </div>
+</div>
+
+
+
+
+
+
 
                 <?php
                 if (isset($_GET['start_date']) && isset($_GET['end_date'])) {
@@ -210,7 +253,23 @@ $xml_data = false;
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+
+  <script>
+        document.getElementById('dateForm').onsubmit = function() {
+            // Show the spinner when form is submitted
+            document.getElementById('loadingSpinner').style.display = 'block';
+        };
+
+        <?php if ($xmlData) : ?>
+            // Hide the spinner when the table is loaded
+            document.getElementById('loadingSpinner').style.display = 'none';
+            document.getElementById('resultTable').style.display = 'block';
+        <?php endif; ?>
+    </script>
 </body>
 
 </html>
