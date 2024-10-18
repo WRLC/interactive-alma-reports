@@ -51,7 +51,7 @@ $xml_data = false;
     error_reporting(E_ALL);
 
     // Function to fetch XML data via cURL
-    function fetchXMLData($startDate, $endDate, $location, $api_key_interactive)
+    function fetchXMLDataIpeds(string $startDate, string $endDate, string $location, string $api_key_interactive): SimpleXMLElement
     {
 
         // Build the URL with dynamic start date, end date, and location
@@ -89,7 +89,7 @@ $xml_data = false;
     }
 
     // Generate CSV from XML data
-    function generateCSV($xmlData)
+    function generateCsvIpeds(SimpleXMLElement $xmlData): string
     {
 
         $csvFileName = 'export.csv';
@@ -124,10 +124,10 @@ $xml_data = false;
     $csvFileName = '';
 
     if ($startDate && $endDate && $location) {
-        $xmlData = fetchXMLData($startDate, $endDate, $location, $api_key_interactive);
+        $xmlData = fetchXMLDataIpeds($startDate, $endDate, $location, $api_key_interactive);
         // Generate CSV if we have XML data
         if ($xmlData) {
-            $csvFileName = generateCSV($xmlData);
+            $csvFileName = generateCsvIpeds($xmlData);
         }
     }
     ?>
