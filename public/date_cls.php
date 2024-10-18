@@ -52,11 +52,11 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
 
 
     // Function to fetch XML data via cURL
-    function fetchXMLData($startDate, $endDate, $location)
+    function fetchXMLData(string $startDate, string $endDate, string $location): SimpleXMLElement
     {
 
         // Get the API key from the environment
-        $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
+        $api_key_interactive = getenv('API_KEY_INTERACTIVE');
         $apikey = $api_key_interactive;
 
         // Build the URL with dynamic start date, end date, and location
@@ -102,7 +102,7 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
     }
 
     // Generate CSV from XML data
-    function generateCSV($xmlData)
+    function generateCSV(SimpleXMLElement $xmlData): string
     {
 
         $csvFileName = 'export.csv';
