@@ -139,7 +139,7 @@ if (isset($_GET['download_csv']) && $_GET['download_csv'] == 'true') {
                     $end_date = htmlspecialchars($_GET['end_date']);
 
                     // Display the start and end dates
-                ?>
+                    ?>
                     <h4 class='mt-5'>Selected Dates:</h4>
                     <p><strong>Start Date:</strong> <?php echo $start_date ?></p>
                     <p><strong>End Date:</strong> <?php echo $end_date ?></p>
@@ -150,22 +150,22 @@ if (isset($_GET['download_csv']) && $_GET['download_csv'] == 'true') {
 
                     // Check if data was successfully fetched
                     if ($xml_data === false) {
-                    ?>
+                        ?>
                         <p class='text-danger'>Failed to retrieve data from the API.</p>
                         <?php
                     } else {
                         // Parse the XML data
                         $xml = simplexml_load_string($xml_data);
                         if ($xml === false) {
-                        ?>
+                            ?>
                             <p class='text-danger'>Failed to parse XML data.</p>
-                        <?php
+                            <?php
                         } else {
                             // Initialize the sum variable
                             $total_loans = 0;
 
                             // Display the data in a table
-                        ?>
+                            ?>
                             <h4 class='mt-5'>Results:</h4>
 
                             <table style='max-width:800px;' class='table table-bordered table-hover'>
@@ -190,12 +190,12 @@ if (isset($_GET['download_csv']) && $_GET['download_csv'] == 'true') {
 
                                         // Format Column3 as an integer with commas
                                         $formatted_column3 = number_format($loans);
-                                    ?>
+                                        ?>
                                         <tr>
                                             <td><?php echo $row->Column1 ?></td>
                                             <td class='text-end'><?php echo $formatted_column3 ?></td>
                                         </tr>
-                                    <?php
+                                        <?php
                                     }
                                     // Display the total in the last row
                                     ?>
@@ -205,7 +205,7 @@ if (isset($_GET['download_csv']) && $_GET['download_csv'] == 'true') {
                                     </tr>
                                 </tbody>
                             </table>
-                <?php
+                            <?php
                         }
                     }
                 }
@@ -237,7 +237,7 @@ if (isset($_GET['download_csv']) && $_GET['download_csv'] == 'true') {
             document.getElementById('loadingSpinner').style.display = 'block';
         };
 
-        <?php if (isset($xmlData)): ?>
+        <?php if (isset($xmlData)) : ?>
             // Hide the spinner when the table is loaded
             document.getElementById('loadingSpinner').style.display = 'none';
             document.getElementById('resultTable').style.display = 'block';
