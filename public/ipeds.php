@@ -56,8 +56,15 @@ $page_title_with_underscores = str_replace(' ', '_', $page_title);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
-    // Function to fetch XML data via cURL
-    function fetchXMLData($startDate, $endDate, $location)
+    /** Function to fetch XML data via cURL
+     *
+     * @param string $startDate Start date
+     * @param string $endDate   End date
+     * @param string $location  Location
+     *
+     * @return SimpleXMLElement
+     */
+    function fetchXMLData(string $startDate, string $endDate, string $location): SimpleXMLElement
     {
 
         // Get the API key from the environment
@@ -97,8 +104,13 @@ $page_title_with_underscores = str_replace(' ', '_', $page_title);
         return simplexml_load_string($output);
     }
 
-    // Generate CSV from XML data
-    function generateCSV($xmlData)
+    /** Generate CSV from XML data
+     *
+     * @param SimpleXMLElement $xmlData XML data
+     *
+     * @return string CSV file name
+     */
+    function generateCSV(SimpleXMLElement $xmlData): string
     {
 
         $csvFileName = 'export.csv';
@@ -126,9 +138,9 @@ $page_title_with_underscores = str_replace(' ', '_', $page_title);
     }
 
     // Get form data
-    $startDate = isset($_POST['start_date']) ? $_POST['start_date'] : '';
-    $endDate = isset($_POST['end_date']) ? $_POST['end_date'] : '';
-    $location = isset($_POST['location']) ? $_POST['location'] : '';
+    $startDate = $_POST['start_date'] ?? '';
+    $endDate = $_POST['end_date'] ?? '';
+    $location = $_POST['location'] ?? '';
     $xmlData = null;
     $csvFileName = '';
 

@@ -33,9 +33,9 @@ if (isset($_GET['download_csv']) && $_GET['download_csv'] == 'true') {
         $url = "https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington+Research+Library+Consortium+%28WRLC%29+Network%2FReports%2FCannedReports%2FNumber+of+loans+per+institution+by+date+range&limit=1000&col_names=true&apikey=" . $api_key_interactive . "&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20op=%22between%22%20xsi:type=%22sawx:comparison%22%3E%20%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Date%20Key%22%3C/sawx:expr%3E%20%3Csawx:expr%20xsi:type=%22xsd:date%22%3E" . $start_date . "%3C/sawx:expr%3E%20%3Csawx:expr%20xsi:type=%22xsd:date%22%3E" . $end_date . "%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E";
 
         // Fetch the XML data
-        $xml_data = file_get_contents($url);
-        if ($xml_data !== false) {
-            $xml = simplexml_load_string($xml_data);
+        $xmlData = file_get_contents($url);
+        if ($xmlData !== false) {
+            $xml = simplexml_load_string($xmlData);
             if ($xml !== false) {
                 // Set headers for CSV download
                 header('Content-Type: text/csv');
@@ -76,7 +76,9 @@ if (isset($_GET['download_csv']) && $_GET['download_csv'] == 'true') {
 <body>
     <?php
     // API URL
-    $url = "https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington+Research+Library+Consortium+%28WRLC%29+Network%2FReports%2FCannedReports%2FNumber+of+loans+per+institution+by+date+range&limit=1000&col_names=true&apikey=" . $api_key_interactive . "&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20op=%22between%22%20xsi:type=%22sawx:comparison%22%3E%20%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Date%20Key%22%3C/sawx:expr%3E%20%3Csawx:expr%20xsi:type=%22xsd:date%22%3E" . $start_date . "%3C/sawx:expr%3E%20%3Csawx:expr%20xsi:type=%22xsd:date%22%3E" . $end_date . "%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E";
+    $start_date_display = $start_date ?? '';  // Set a display start date to avoid not defined error
+    $end_date_display = $end_date ?? '';  // Set a display end date to avoid not defined error
+    $url = "https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington+Research+Library+Consortium+%28WRLC%29+Network%2FReports%2FCannedReports%2FNumber+of+loans+per+institution+by+date+range&limit=1000&col_names=true&apikey=" . $api_key_interactive . "&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20op=%22between%22%20xsi:type=%22sawx:comparison%22%3E%20%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Date%20Key%22%3C/sawx:expr%3E%20%3Csawx:expr%20xsi:type=%22xsd:date%22%3E" . $start_date_display . "%3C/sawx:expr%3E%20%3Csawx:expr%20xsi:type=%22xsd:date%22%3E" . $end_date_display . "%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E";
 
     // Parse the URL to extract the query string
     $parsed_url = parse_url($url);
@@ -213,8 +215,8 @@ if (isset($_GET['download_csv']) && $_GET['download_csv'] == 'true') {
                 // After the table displaying results
                 if (isset($xml)) {
                     echo '<div class="text-center mt-3"><form method="get">';
-                    echo '<input type="hidden" name="start_date" value="' . $start_date . '">';
-                    echo '<input type="hidden" name="end_date" value="' . $end_date . '">';
+                    echo '<input type="hidden" name="start_date" value="' . $start_date_display . '">';
+                    echo '<input type="hidden" name="end_date" value="' . $end_date_display . '">';
                     echo '<input type="hidden" name="download_csv" value="true">';
                     echo '<button type="submit" class="btn btn-success text-center mt-3 mb-5">Download CSV</button>';
                     echo '</form></div>';
@@ -235,7 +237,7 @@ if (isset($_GET['download_csv']) && $_GET['download_csv'] == 'true') {
             document.getElementById('loadingSpinner').style.display = 'block';
         };
 
-        <?php if ($xmlData): ?>
+        <?php if (isset($xmlData)): ?>
             // Hide the spinner when the table is loaded
             document.getElementById('loadingSpinner').style.display = 'none';
             document.getElementById('resultTable').style.display = 'block';

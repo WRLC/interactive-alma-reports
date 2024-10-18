@@ -48,8 +48,16 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
     //Define the page title to display and to nave the CSV file
 
 
-    // Function to fetch XML data via cURL
-    function fetchXMLData($startDate, $endDate, $location)
+    /**
+     * Function to fetch XML data via cURL
+     *
+     * @param string $startDate Start date
+     * @param string $endDate   End date
+     * @param string $location  Location
+     *
+     * @return SimpleXMLElement
+     */
+    function fetchXMLData(string $startDate, string $endDate, string $location): SimpleXMLElement
     {
         // Get the API key from the environment
         $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
@@ -97,8 +105,13 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
         return simplexml_load_string($output);
     }
 
-    // Generate CSV from XML data
-    function generateCSV($xmlData)
+    /** Generate CSV from XML data
+     *
+     * @param SimpleXMLElement $xmlData XML data
+     *
+     * @return string
+     */
+    function generateCSV(SimpleXMLElement $xmlData): string
     {
 
         $csvFileName = 'export.csv';
