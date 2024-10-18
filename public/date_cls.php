@@ -134,10 +134,6 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
         $xmlData = fetchXmlData($startDate, $endDate, $location, $api_key_interactive);
         // Generate CSV if we have XML data
         if ($xmlData) {
-
-
-
-
             $csvFileName = generateCSV($xmlData);
         }
     }
@@ -167,22 +163,54 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
                                 <select class="form-control" id="location" name="location" required>
                                     <option value="" disabled selected>Select a location</option>
 
-                                    <option value="American University" <?php if ($location == "American University") echo 'selected'; ?>>American University</option>
-                                    <option value="American University Washington College of Law" <?php if ($location == "American University Washington College of Law") echo 'selected'; ?>>American University Washington College of Law</option>
-                                    <option value="American University Washington College of Law Library" <?php if ($location == "American University Washington College of Law Library") echo 'selected'; ?>>American University Washington College of Law Library</option>
-                                    <option value="Catholic University of America" <?php if ($location == "Catholic University of America") echo 'selected'; ?>>Catholic University of America</option>
-                                    <option value="Gallaudet University" <?php if ($location == "Gallaudet University") echo 'selected'; ?>>Gallaudet University</option>
-                                    <option value="George Mason University Libraries" <?php if ($location == "George Mason University Libraries") echo 'selected'; ?>>George Mason University Libraries</option>
-                                    <option value="George Washington University" <?php if ($location == "George Washington University") echo 'selected'; ?>>George Washington University</option>
-                                    <option value="George Washington University Himmelfarb Health Sciences Library" <?php if ($location == "George Washington University Himmelfarb Health Sciences Library") echo 'selected'; ?>>George Washington University Himmelfarb Health Sciences Library</option>
-                                    <option value="George Washington University Jacob Burns Law Library" <?php if ($location == "George Washington University Jacob Burns Law Library") echo 'selected'; ?>>George Washington University Jacob Burns Law Library</option>
-                                    <option value="Georgetown University" <?php if ($location == "Georgetown University") echo 'selected'; ?>>Georgetown University</option>
-                                    <option value="Georgetown University Law Library" <?php if ($location == "Georgetown University Law Library") echo 'selected'; ?>>Georgetown University Law Library</option>
-                                    <option value="Howard University" <?php if ($location == "Howard University") echo 'selected'; ?>>Howard University</option>
-                                    <option value="Marymount University" <?php if ($location == "Marymount University") echo 'selected'; ?>>Marymount University</option>
-                                    <option value="Shared Collections Facility" <?php if ($location == "Shared Collections Facility") echo 'selected'; ?>>Shared Collections Facility</option>
-                                    <option value="University of the District of Columbia" <?php if ($location == "University of the District of Columbia") echo 'selected'; ?>>University of the District of Columbia</option>
-                                    <option value="University of the District of Columbia, Law School" <?php if ($location == "University of the District of Columbia, Law School") echo 'selected'; ?>>University of the District of Columbia, Law School</option>
+                                    <option value="American University" <?php if ($location == "American University") {
+                                        echo 'selected';
+                                                                        } ?>>American University</option>
+                                    <option value="American University Washington College of Law" <?php if ($location == "American University Washington College of Law") {
+                                        echo 'selected';
+                                                                                                  } ?>>American University Washington College of Law</option>
+                                    <option value="American University Washington College of Law Library" <?php if ($location == "American University Washington College of Law Library") {
+                                        echo 'selected';
+                                                                                                          } ?>>American University Washington College of Law Library</option>
+                                    <option value="Catholic University of America" <?php if ($location == "Catholic University of America") {
+                                        echo 'selected';
+                                                                                   } ?>>Catholic University of America</option>
+                                    <option value="Gallaudet University" <?php if ($location == "Gallaudet University") {
+                                        echo 'selected';
+                                                                         } ?>>Gallaudet University</option>
+                                    <option value="George Mason University Libraries" <?php if ($location == "George Mason University Libraries") {
+                                        echo 'selected';
+                                                                                      } ?>>George Mason University Libraries</option>
+                                    <option value="George Washington University" <?php if ($location == "George Washington University") {
+                                        echo 'selected';
+                                                                                 } ?>>George Washington University</option>
+                                    <option value="George Washington University Himmelfarb Health Sciences Library" <?php if ($location == "George Washington University Himmelfarb Health Sciences Library") {
+                                        echo 'selected';
+                                                                                                                    } ?>>George Washington University Himmelfarb Health Sciences Library</option>
+                                    <option value="George Washington University Jacob Burns Law Library" <?php if ($location == "George Washington University Jacob Burns Law Library") {
+                                        echo 'selected';
+                                                                                                         } ?>>George Washington University Jacob Burns Law Library</option>
+                                    <option value="Georgetown University" <?php if ($location == "Georgetown University") {
+                                        echo 'selected';
+                                                                          } ?>>Georgetown University</option>
+                                    <option value="Georgetown University Law Library" <?php if ($location == "Georgetown University Law Library") {
+                                        echo 'selected';
+                                                                                      } ?>>Georgetown University Law Library</option>
+                                    <option value="Howard University" <?php if ($location == "Howard University") {
+                                        echo 'selected';
+                                                                      } ?>>Howard University</option>
+                                    <option value="Marymount University" <?php if ($location == "Marymount University") {
+                                        echo 'selected';
+                                                                         } ?>>Marymount University</option>
+                                    <option value="Shared Collections Facility" <?php if ($location == "Shared Collections Facility") {
+                                        echo 'selected';
+                                                                                } ?>>Shared Collections Facility</option>
+                                    <option value="University of the District of Columbia" <?php if ($location == "University of the District of Columbia") {
+                                        echo 'selected';
+                                                                                           } ?>>University of the District of Columbia</option>
+                                    <option value="University of the District of Columbia, Law School" <?php if ($location == "University of the District of Columbia, Law School") {
+                                        echo 'selected';
+                                                                                                       } ?>>University of the District of Columbia, Law School</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button> <a class="btn btn-danger" href="">Clear</a>
@@ -207,7 +235,7 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
         </div>
         <!-- End Spinner section, initially hidden -->
 
-        <?php if ($xmlData): ?>
+        <?php if ($xmlData) : ?>
             <div class="row justify-content-center mt-5">
                 <div class="col-lg-8">
                     <h2 class="text-center">CLS Loans per Institution :
@@ -232,10 +260,10 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
                         <tbody>
                             <?php
                             $totalSum = 0; // Initialize the total sum of Column4
-                            foreach ($xmlData->QueryResult->ResultXml->rowset->Row as $row):
+                            foreach ($xmlData->QueryResult->ResultXml->rowset->Row as $row) :
                                 $column5Value = (float)$row->Column5; // Convert Column4 value to float for summation
                                 $totalSum += $column5Value; // Sum up Column4 values
-                            ?>
+                                ?>
                                 <tr>
                                     <td><?php echo (string)$row->Column1; ?></td>
                                     <td><?php echo (string)$row->Column2; ?></td>
@@ -252,7 +280,7 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
                     </div>
 
                     <!-- Provide a download link for the CSV -->
-                    <?php if ($csvFileName): ?>
+                    <?php if ($csvFileName) : ?>
                         <div class="text-center mt-3">
                             <a href="<?php echo $csvFileName; ?>" class="btn btn-success">Download CSV</a>
                         </div><br />
@@ -273,7 +301,7 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
             document.getElementById('loadingSpinner').style.display = 'block';
         };
 
-        <?php if ($xmlData): ?>
+        <?php if ($xmlData) : ?>
             // Hide the spinner when the table is loaded
             document.getElementById('loadingSpinner').style.display = 'none';
             document.getElementById('resultTable').style.display = 'block';
