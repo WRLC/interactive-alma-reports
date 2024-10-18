@@ -11,9 +11,10 @@ jobs:
       - uses: php-actions/composer@v6
         with:
           php_version: 8.1
+          args: --ignore-platform-reqs
 
       - name: PHPStan
         uses: php-actions/phpstan@v3
         with:
-          path: public/
+          configuration: phpstan.neon
           php_version: 8.1

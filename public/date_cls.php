@@ -11,6 +11,8 @@
  * @link     https://github.com/WRLC/interactive-alma-reports/docs/files/public-date-cls.html Documentation
  */
 
+/** @noinspection PhpUnnecessaryStringCastInspection */
+
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Dotenv\Dotenv;
@@ -74,6 +76,7 @@ echo '<p>
                         ?>
                         <div class="row offset-md-2">
                             <div class="mb-3 col-md-6" style="max-width: 200px;">
+
                                 <label for="start_date" class="form-label">Start Date</label>
                                 <input type="date" class="form-control" id="start_date" value="<?php echo $start_date ?>" name="start_date" required>
                             </div>
@@ -95,6 +98,7 @@ echo '<p>
                             <div class="mb-3 col-md-6" style="max-width: 200px;">
                                 <label for="end_date" class="form-label">End Date</label>
                                 <input type="date" class="form-control" id="end_date" name="end_date" required>
+
                             </div>
                         </div>
                         <?php
@@ -250,6 +254,7 @@ echo '<p>
                     <?php
                 }
                 ?>
+
             </div>
         </div>
     </div>

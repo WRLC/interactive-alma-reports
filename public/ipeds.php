@@ -71,6 +71,7 @@ function fetchXMLData($startDate, $endDate, $location)
     // Get the 'path' parameter and decode it for display
     $path_value = urldecode($query_params['path']);
 
+
     // Display the report path as an <h2>
     echo '<p>
   <button class="btn btn-info btn-sm mt-3 ml-5" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Report Info</button>
@@ -122,6 +123,7 @@ function generateCSV($xmlData)
     // Close file
     fclose($file);
 
+
     return $csvFileName;
 }
 
@@ -140,6 +142,7 @@ if ($startDate && $endDate && $location) {
     }
 }
 ?>
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6 mt-4">
@@ -178,6 +181,7 @@ if ($startDate && $endDate && $location) {
                                     <option value="Shared Collections Facility" <?php if($location == "Shared Collections Facility") echo 'selected'; ?>>Shared Collections Facility</option>
                                     <option value="University of the District of Columbia" <?php if($location == "University of the District of Columbia") echo 'selected'; ?>>University of the District of Columbia</option>
                                     <option value="University of the District of Columbia, Law School" <?php if($location == "University of the District of Columbia, Law School") echo 'selected'; ?>>University of the District of Columbia, Law School</option>
+
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button> <a class="btn btn-danger" href="">Clear</a>
@@ -198,6 +202,7 @@ if ($startDate && $endDate && $location) {
 </div>
 
 <!---- Display results ----->
+
         <?php if ($xmlData) : ?>
             <div class="row justify-content-center mt-5">
                 <div class="col-lg-8">
@@ -218,6 +223,7 @@ if ($startDate && $endDate && $location) {
                             <?php 
                             $totalSum = 0; // Initialize the total sum of Column4
                             foreach ($xmlData->QueryResult->ResultXml->rowset->Row as $row): 
+
                                 $column4Value = (float)$row->Column4; // Convert Column4 value to float for summation
                                 $totalSum += $column4Value; // Sum up Column4 values
                                 ?>

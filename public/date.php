@@ -33,9 +33,9 @@ if (isset($_GET['download_csv']) && $_GET['download_csv'] == 'true') {
         $url = "https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington+Research+Library+Consortium+%28WRLC%29+Network%2FReports%2FCannedReports%2FNumber+of+loans+per+institution+by+date+range&limit=1000&col_names=true&apikey=" . $api_key_interactive . "&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20op=%22between%22%20xsi:type=%22sawx:comparison%22%3E%20%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Date%20Key%22%3C/sawx:expr%3E%20%3Csawx:expr%20xsi:type=%22xsd:date%22%3E" . $start_date . "%3C/sawx:expr%3E%20%3Csawx:expr%20xsi:type=%22xsd:date%22%3E" . $end_date . "%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E";
 
         // Fetch the XML data
-        $xml_data = file_get_contents($url);
-        if ($xml_data !== false) {
-            $xml = simplexml_load_string($xml_data);
+        $xmlData = file_get_contents($url);
+        if ($xmlData !== false) {
+            $xml = simplexml_load_string($xmlData);
             if ($xml !== false) {
                 // Set headers for CSV download
                 header('Content-Type: text/csv');
@@ -72,6 +72,7 @@ if (isset($_GET['download_csv']) && $_GET['download_csv'] == 'true') {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 </head>
 <body>
+
 <?php
                     // API URL
                     $url = "https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington+Research+Library+Consortium+%28WRLC%29+Network%2FReports%2FCannedReports%2FNumber+of+loans+per+institution+by+date+range&limit=1000&col_names=true&apikey=" . $api_key_interactive . "&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20op=%22between%22%20xsi:type=%22sawx:comparison%22%3E%20%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Date%20Key%22%3C/sawx:expr%3E%20%3Csawx:expr%20xsi:type=%22xsd:date%22%3E" . $start_date . "%3C/sawx:expr%3E%20%3Csawx:expr%20xsi:type=%22xsd:date%22%3E" . $end_date . "%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E";
@@ -193,6 +194,7 @@ echo '<p>
                             }
                             // Display the total in the last row
                             ?>
+
                                     <tr>
                                         <td><strong>Total:</strong></td>
                                         <td class='text-end'><strong><?php echo number_format($total_loans) ?></strong></td>
@@ -231,7 +233,7 @@ if (isset($xml)) {
             document.getElementById('loadingSpinner').style.display = 'block';
         };
 
-        <?php if ($xmlData): ?>
+        <?php if (isset($xmlData)) : ?>
             // Hide the spinner when the table is loaded
             document.getElementById('loadingSpinner').style.display = 'none';
             document.getElementById('resultTable').style.display = 'block';
