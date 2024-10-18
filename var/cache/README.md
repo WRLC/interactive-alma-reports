@@ -1,0 +1,1 @@
+Placeholder for cache directory. Not committed to the repository. Placeholder necessary for code inspection workflow.
