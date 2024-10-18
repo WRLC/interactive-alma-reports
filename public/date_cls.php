@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpUnnecessaryStringCastInspection */
+
 /**
  * CLS Loans per Institution by Date Range
  * php version 8.1
@@ -60,18 +62,18 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
     function fetchXMLData(string $startDate, string $endDate, string $location): SimpleXMLElement
     {
         // Get the API key from the environment
-        $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
-        $apikey = $api_key_interactive;
+        $apiKeyInteractive = getenv('API_KEY_INTERACTIVE');
+        $apikey = $apiKeyInteractive;
 
         // Build the URL with dynamic start date, end date, and location
         // $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20rpt_IPEDSytdlibx_GAborrower_2&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22equal%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Details%22.%22Loans%20-%20Linked%20From%20Institution%20Name%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
         $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20rpt_clslibx%20by%20date%20range&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22equal%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Institution%22.%22Institution%20Name%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
         // Parse the URL to extract the query string
-        $parsed_url = parse_url($url);
-        parse_str($parsed_url['query'], $query_params);
+        $parsedUrl = parse_url($url);
+        parse_str($parsedUrl['query'], $queryParams);
 
         // Get the 'path' parameter and decode it for display
-        $path_value = urldecode($query_params['path']);
+        $pathValue = urldecode($queryParams['path']);
 
         // Display the report path it as an <h2>
 
@@ -83,23 +85,23 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
 </p>
 <div class="collapse" id="collapseExample">
   <div class="card card-body"><p><strong>Analytics Path:</strong> 
-   ' . htmlspecialchars($path_value) . '</p>
+   ' . htmlspecialchars($pathValue) . '</p>
   </div>
 </div>';
 
 
         // Initialize cURL
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $curlHandle = curl_init();
+        curl_setopt($curlHandle, CURLOPT_URL, $url);
+        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, 1);
 
         // Execute cURL and get the response
-        $output = curl_exec($ch);
+        $output = curl_exec($curlHandle);
 
-        if (curl_errno($ch)) {
-            echo 'Curl error: ' . curl_error($ch);
+        if (curl_errno($curlHandle)) {
+            echo 'Curl error: ' . curl_error($curlHandle);
         }
-        curl_close($ch);
+        curl_close($curlHandle);
 
         // Parse the XML response
         return simplexml_load_string($output);
@@ -140,18 +142,15 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
     }
 
     // Get form data
-    $startDate = isset($_POST['start_date']) ? $_POST['start_date'] : '';
-    $endDate = isset($_POST['end_date']) ? $_POST['end_date'] : '';
-    $location = isset($_POST['location']) ? $_POST['location'] : '';
+    $startDate = $_POST['start_date'] ?? '';
+    $endDate = $_POST['end_date'] ?? '';
+    $location = $_POST['location'] ?? '';
     $xmlData = null;
     $csvFileName = '';
 
     if ($startDate && $endDate && $location) {
         $xmlData = fetchXMLData($startDate, $endDate, $location);
-        // Generate CSV if we have XML data
-        if ($xmlData) {
-            $csvFileName = generateCSV($xmlData);
-        }
+        $csvFileName = generateCSV($xmlData);
     }
     ?>
 
@@ -252,7 +251,8 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
             <div class="row justify-content-center mt-5">
                 <div class="col-lg-8">
                     <h2 class="text-center">CLS Loans per Institution :
-                        <?php echo (string)$xmlData->QueryResult->ResultXml->rowset->Row[0]->Column1; ?></h2>
+                        <?php
+                        echo (string)$xmlData->QueryResult->ResultXml->rowset->Row[0]->Column1; ?></h2>
                     <h4 class="text-center">for physical item requests</h4>
                     <p>
                         <?php if ($startDate && $endDate && $location) {
