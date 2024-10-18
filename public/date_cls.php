@@ -1,7 +1,5 @@
 <?php
 
-/** @noinspection PhpUnnecessaryStringCastInspection */
-
 /**
  * CLS Loans per Institution by Date Range
  * php version 8.1
@@ -12,6 +10,8 @@
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://github.com/WRLC/interactive-alma-reports/docs/files/public-date-cls.html Documentation
  */
+
+/** @noinspection PhpUnnecessaryStringCastInspection */
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
