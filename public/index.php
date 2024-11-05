@@ -46,7 +46,8 @@ function stringBetweenTwoStrings(string $str, string $start, string $end): strin
                             $files = scandir('.');
                             $links = [];
                             foreach ($files as $file) {
-                                if (strpos($file, '.php') !== false && $file != 'index.php') {
+                                $info = new SplFileInfo($file);
+                                if ($info->getExtension() == 'php' && $file != 'index.php') {
                                     $doc = token_get_all(file_get_contents($file))[2][1];
                                     $title = stringBetweenTwoStrings($doc, '/** * ', ' */');
                                     $links[$title] = $file;
