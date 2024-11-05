@@ -1,13 +1,6 @@
 <?php
 /**
  * Reports Index
- * php version 8.1
- *
- * @category Alma
- * @package  WRLC
- * @author   Tom Boone <tom.boone@wrlc.org>
- * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     https://github.com/WRLC/interactive-alma-reports/public/index.php Repository File
  */
 
 /**
@@ -55,7 +48,7 @@ function stringBetweenTwoStrings(string $str, string $start, string $end): strin
                             foreach ($files as $file) {
                                 if (strpos($file, '.php') !== false && $file != 'index.php') {
                                     $doc = token_get_all(file_get_contents($file))[2][1];
-                                    $title = stringBetweenTwoStrings($doc, '/** * ', ' * php version');
+                                    $title = stringBetweenTwoStrings($doc, '/** * ', ' */');
                                     $links[$title] = $file;
                                 }
                             }
