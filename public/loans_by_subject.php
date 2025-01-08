@@ -286,7 +286,7 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
 
                     <!-- Display the sum of Column6 -->
                     <div class="alert alert-info text-center">
-                        <strong>Total: </strong> <?php echo $total; ?>
+                        <strong>Total: </strong> <?php echo $total; /* @phpstan-ignore variable.undefined */?>
                             
                     </div>
 
