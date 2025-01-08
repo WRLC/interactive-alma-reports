@@ -264,23 +264,23 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
                         </thead>
                         <tbody>
             <?php
- foreach ($xmlData->QueryResult->ResultXml->rowset->Row as $row) {
-    // Convert Column5 to an integer and add to the total
-    //$loans = (int)$row->Column5;
-   // $total_loans += $loans;
+            foreach ($xmlData->QueryResult->ResultXml->rowset->Row as $row) {
+               // Convert Column5 to an integer and add to the total
+               //$loans = (int)$row->Column5;
+              // $total_loans += $loans;
 
-    $total = (int)$row->Column7;
+                $total = (int)$row->Column7;
 
-    // Format Column3 as an integer with commas
-   // $formatted_column6 = number_format($loans);
-    echo "<tr>";
-    echo "<td>{$row->Column2} ({$row->Column8})</td>";
-    echo "<td class='text-end'>{$row->Column3}</td>";
-    echo "<td class='text-end'>{$row->Column5}</td>";
-    
-    echo "</tr>";
-}
-?>
+               // Format Column3 as an integer with commas
+              // $formatted_column6 = number_format($loans);
+                echo "<tr>";
+                echo "<td>{$row->Column2} ({$row->Column8})</td>";
+                echo "<td class='text-end'>{$row->Column3}</td>";
+                echo "<td class='text-end'>{$row->Column5}</td>";
+
+                echo "</tr>";
+            }
+            ?>
                         </tbody>
                     </table>
 
