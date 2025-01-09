@@ -5,7 +5,6 @@ services:
     working_dir: /app
     volumes:
       - ./:/app
-      - ~/.gitconfig:/etc/gitconfig
       - ./xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
       - ./error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
     labels:
@@ -13,12 +12,17 @@ services:
       - "traefik.http.routers.interactive_alma_reports.rule=Host(`interactive-alma-reports.wrlc.localhost`)"
       - "traefik.http.routers.interactive_alma_reports.tls=true"
       - "traefik.http.routers.interactive_alma_reports.entrypoints=websecure"
+    secrets:
+      - ssh_key
+      - gitconfig
     networks:
       - proxy
 
 secrets:
-  user_ssh_key:
-    file: ~/.ssh/id_rsa
+  ssh_key:
+    file: ${SSH_KEY_FILE}
+  gitconfig:
+    file: ${GITCONFIG}
 
 networks:
   proxy:
