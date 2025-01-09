@@ -30,12 +30,22 @@ Interactive reports utilizing Alma APIs
     ```bash
     docker exec -i -t interactive_alma_reports /bin/bash
     ```
-4. Copy .env file:
+4. Copy local .env file from .env.template:
     ```bash
     cp .env.template .env
     ```
-5. Replace the placeholder `API_KEY_INTERACTIVE` value in the .env file with a working Alma API key.
-6. Visit the application in your browser at [https://interactive-alma-reports.wrlc.localhost](https://interactive-alma-reports.wrlc.localhost)
+5. Replace the placeholder `API_KEY_INTERACTIVE` value in the .env file with a working Alma API key:
+    ```bash
+    API_KEY_INTERACTIVE=alma_api_key_goes_here
+    ```
+
+6. Update `SSH_KEY_FILE` and `GIT_CONFIG_FILE` in the .env file to match the paths of your local SSH key and git configuration file—if they don't match the values in the template:
+    ```bash
+    SSH_KEY_FILE=~/.ssh/id_rsa
+    GITCONFIG=~/.gitconfig
+    ```
+
+7. Visit the application in your browser at [https://interactive-alma-reports.wrlc.localhost](https://interactive-alma-reports.wrlc.localhost)
 
 ### Running Tests
 
