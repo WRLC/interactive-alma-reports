@@ -142,7 +142,7 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-6 mt-4">
+            <div class="col-lg-6 mt-4 d-print-none">
                 <h2 class="text-center"><?php echo $page_title; ?></h2>
                 <div class="card">
                     <div class="card-header text-center">

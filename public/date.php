@@ -80,7 +80,7 @@ if (isset($_GET['download_csv']) && $_GET['download_csv'] == 'true') {
 <body>
     <div class="container mt-5">
         <div class="row">
-            <div class="col-md-6 offset-md-3">
+            <div class="col-md-6 offset-md-3 d-print-none">
             <h2 class="text-center">Number of Loans per Institution by Date Range</h2>
                     <h6 class="text-center"> (Not In House)</h6>
                     <div class="card">
