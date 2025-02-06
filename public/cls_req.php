@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Loans by Subject by University
+ * CLS Loan Requests per Institution by Date Range
  */
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
@@ -20,7 +20,7 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
 <html lang="en">
 
 <head>
-    <?php $page_title = 'Loans by Subject by University';
+    <?php $page_title = 'CLS Loan Requests per Institution by Date Range';
     $page_title_with_underscores = str_replace(' ', '_', $page_title); ?>
 
     <meta charset="UTF-8">
@@ -51,12 +51,11 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
 
         // Get the API key from the environment
         $apikey = $apikeyinteractive;
-        // Add the path to the Alma Report
-        $path = '%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20-%20loans_by_subject_by_institution';
+
         // Build the URL with dynamic start date, end date, and location
-        $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=' . $path . '&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22equal%22%3E%3Csawx:expr%20xsi:type=%22sawx:columnExpression%22%20formulaUse=%22display%22%20displayUse=%22display%22%3E%3Csaw:columnFormula%20formulaUse=%22display%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Institution%22.%22Institution%20Name%22%3C/sawx:expr%3E%3C/saw:columnFormula%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
-       // Parse the URL to extract the query string
-     // echo '<a target = "_blank" href="'.$url.'">URL</a>';
+        // $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20rpt_IPEDSytdlibx_GAborrower_2&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22equal%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Details%22.%22Loans%20-%20Linked%20From%20Institution%20Name%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
+        $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20rpt_clsreq&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Request%20Date%22.%22Request%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAll%22%3E%3Csawx:expr%20xsi:type=%22sawx:columnExpression%22%20formulaUse=%22display%22%20displayUse=%22display%22%3E%3Csaw:columnFormula%20formulaUse=%22display%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Institution%22.%22Institution%20Name%22%3C/sawx:expr%3E%3C/saw:columnFormula%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
+        // Parse the URL to extract the query string
         $parsedUrl = parse_url($url);
         parse_str($parsedUrl['query'], $queryParams);
 
@@ -73,15 +72,8 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
 </p>
 <div class="collapse" id="collapseExample">
   <div class="card card-body"><p><strong>Analytics Path:</strong> 
-   ' . htmlspecialchars($pathValue) . '</p>';
-// Load the XML
-        $xml = simplexml_load_file($url);
-
-// Count the number of <Row> elements
-        $rowCount = count($xml->QueryResult->ResultXml->rowset->Row);
-
-        echo "<p>Number of <Row> items: " . $rowCount . "</p>";
-        echo '</div>
+   ' . htmlspecialchars($pathValue) . '</p>
+  </div>
 </div>';
 
 
@@ -113,15 +105,15 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
         $file = fopen($csvFilePath, 'w');
 
         // Add the CSV headers
-        fputcsv($file, ['Collection/Classification Range', 'Borrower Institution', 'Count', 'Total']);
+        fputcsv($file, ['Lender Institution', 'Borrower Institution', 'Type', 'Total']);
 
         // Add data rows
         foreach ($xmlData->QueryResult->ResultXml->rowset->Row as $row) {
             fputcsv($file, [
-                (string)$row->Column2, // Classification
-                (string)$row->Column3, // Borrower Institution
-                (string)$row->Column5, // Count
-                (float)$row->Column8  // Total
+                (string)$row->Column1, // Lender Institution
+                (string)$row->Column4, // Borrower Institution
+                (string)$row->Column5, // Type
+                (float)$row->Column7  // Total
             ]);
         }
 
@@ -228,7 +220,10 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
             </div>
         </div>
 
+
         <!-- Spinner section, initially hidden -->
+
+
         <div class="row justify-content-center text-center mt-4" id="loadingSpinner" style="display:none;">
             <div class=" text-center justify-content-center">
 
@@ -248,7 +243,7 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
                             echo (string)$xmlData->queryResult->resultXml->rowset->Row[0]->Column1;
                         } ?>
                     </h2>
-                    <h4 class="text-center">for <?php echo $location; ?></h4>
+                    
                     <p>
                         <?php if ($startDate && $endDate && $location) {
                             echo "<p class='text-center'>Start Date: $startDate - End Date: $endDate</p>";
@@ -256,38 +251,32 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
                     <table class="table table-striped table-bordered">
                         <thead class="thead-dark">
                             <tr>
-                                <th>Collection/Classification Range (Subject Total)</th>
+                                <th>Lender Institution</th>
                                 <th>Borrower Institution</th>
-                                <th>Count</th>
-                               
+                                <th>Type</th>
+                                <th>Total</th>
                             </tr>
                         </thead>
                         <tbody>
-            <?php
-            foreach ($xmlData->QueryResult->ResultXml->rowset->Row as $row) {
-               // Convert Column5 to an integer and add to the total
-               //$loans = (int)$row->Column5;
-              // $total_loans += $loans;
-
-                $total = (int)$row->Column7;
-
-               // Format Column3 as an integer with commas
-              // $formatted_column6 = number_format($loans);
-                echo "<tr>";
-                echo "<td>{$row->Column2} ({$row->Column8})</td>";
-                echo "<td class='text-end'>{$row->Column3}</td>";
-                echo "<td class='text-end'>{$row->Column5}</td>";
-
-                echo "</tr>";
-            }
-            ?>
+                            <?php
+                            $totalSum = 0; // Initialize the total sum of Column4
+                            foreach ($xmlData->QueryResult->ResultXml->rowset->Row as $row) :
+                                $column7Value = (float)$row->Column7; // Convert Column4 value to float for summation
+                                $totalSum += $column7Value; // Sum up Column4 values
+                                ?>
+                                <tr>
+                                    <td><?php echo (string)$row->Column1; ?></td>
+                                    <td><?php echo (string)$row->Column4; ?></td>
+                                    <td><?php echo (string)$row->Column5; ?></td>
+                                    <td><?php echo $column7Value; ?></td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
 
-                    <!-- Display the sum of Column6 -->
+                    <!-- Display the sum of Column5 -->
                     <div class="alert alert-info text-center">
-                        <strong>Total: </strong> <?php echo $total; /* @phpstan-ignore variable.undefined */?>
-                            
+                        <strong>Total: </strong><?php echo $totalSum; ?>
                     </div>
 
                     <!-- Provide a download link for the CSV -->
@@ -311,6 +300,7 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
             // Show the spinner when form is submitted
             document.getElementById('loadingSpinner').style.display = 'block';
         };
+
         <?php if ($xmlData) : ?>
             // Hide the spinner when the table is loaded
             document.getElementById('loadingSpinner').style.display = 'none';
@@ -318,4 +308,5 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
         <?php endif; ?>
     </script>
 </body>
+
 </html>
