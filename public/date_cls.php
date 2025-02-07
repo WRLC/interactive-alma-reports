@@ -1,7 +1,7 @@
 <?php
 
 /**
- * CLS Loans per Institution by Date Range
+ * Consortium Loans Filled by Institution by Material
  */
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
@@ -20,7 +20,7 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
 <html lang="en">
 
 <head>
-    <?php $page_title = 'CLS Loans per Institution by Date Range';
+    <?php $page_title = 'Consortium Loans Filled by Institution by Material';
     $page_title_with_underscores = str_replace(' ', '_', $page_title); ?>
 
     <meta charset="UTF-8">
@@ -238,7 +238,7 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
         <?php if ($xmlData) : ?>
             <div class="row justify-content-center mt-5">
                 <div class="col-lg-8">
-                    <h2 class="text-center">CLS Loans per Institution :
+                    <h2 class="text-center"><?php echo $page_title; ?> :
                         <?php if ($xmlData->queryResult->resultXml) {
                             echo (string)$xmlData->queryResult->resultXml->rowset->Row[0]->Column1;
                         } ?>
