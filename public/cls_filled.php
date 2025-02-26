@@ -52,18 +52,20 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
         // Get the API key from the environment
         $apikey = $apikeyinteractive;
 
-        if($location=='all') $location = '';
+        if ($location == 'all') {
+            $location = '';
+        }
        // if($lenderlocation=='all') $lenderlocation = '';
 
         // Build the URL with dynamic start date, end date, and location
         // $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20rpt_IPEDSytdlibx_GAborrower_2&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22equal%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Details%22.%22Loans%20-%20Linked%20From%20Institution%20Name%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
        // $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20rpt_clsreq&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Request%20Date%22.%22Request%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAll%22%3E%3Csawx:expr%20xsi:type=%22sawx:columnExpression%22%20formulaUse=%22display%22%20displayUse=%22display%22%3E%3Csaw:columnFormula%20formulaUse=%22display%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Institution%22.%22Institution%20Name%22%3C/sawx:expr%3E%3C/saw:columnFormula%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
-     $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20-%20Interactive%20-%20WRLC%20Consortium%20Loans%20Filled%20by%20Institution&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22equal%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Borrower%20Details%22.%22User%20-%20Linked%20From%20Institution%20Name%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
+        $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20-%20Interactive%20-%20WRLC%20Consortium%20Loans%20Filled%20by%20Institution&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22equal%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Borrower%20Details%22.%22User%20-%20Linked%20From%20Institution%20Name%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
       //$url ='https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20-%20Interactive%20-%20WRLC%20Consortium%20Loans%20Filled%20by%20Institution&limit=1000&col_names=false&apikey=l7xxca4a1f8c94254144b052be63d398bf98&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E%27' . $startDate . '%27%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E%27' . $endDate . '%27%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22equal%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Borrower%20Details%22.%22User%20-%20Linked%20From%20Institution%20Name%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E%27' . urlencode($location) . '%27%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22equal%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Borrower%20Details%22.%22Linked%20From%20Institution%20Name%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E%27' . urlencode($lenderlocation) . '%27%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
-      
-      
-        
-      
+
+
+
+
         // Parse the URL to extract the query string
         $parsedUrl = parse_url($url);
         parse_str($parsedUrl['query'], $queryParams);
@@ -137,8 +139,8 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
     $startDate = isset($_POST['start_date']) ? $_POST['start_date'] : '';
     $endDate = isset($_POST['end_date']) ? $_POST['end_date'] : '';
     $location = isset($_POST['location']) ? $_POST['location'] : '';
-   
-   
+
+
     $xmlData = null;
     $csvFileName = '';
 
@@ -177,24 +179,60 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
 
                                     
                                     
-                                    <option value="all" <?php if ($location == "all") { echo 'selected'; } ?>>All</option>
-<option value="NULL" <?php if ($location == "NULL") { echo 'selected'; } ?>>Anonymized Loan</option>
-<option value="American University" <?php if ($location == "American University") { echo 'selected'; } ?>>American University</option>
-<option value="American University Washington College of Law" <?php if ($location == "American University Washington College of Law") { echo 'selected'; } ?>>American University Washington College of Law</option>
-<option value="American University Washington College of Law Library" <?php if ($location == "American University Washington College of Law Library") { echo 'selected'; } ?>>American University Washington College of Law Library</option>
-<option value="Catholic University of America" <?php if ($location == "Catholic University of America") { echo 'selected'; } ?>>Catholic University of America</option>
-<option value="Gallaudet University" <?php if ($location == "Gallaudet University") { echo 'selected'; } ?>>Gallaudet University</option>
-<option value="George Mason University Libraries" <?php if ($location == "George Mason University Libraries") { echo 'selected'; } ?>>George Mason University Libraries</option>
-<option value="George Washington University" <?php if ($location == "George Washington University") { echo 'selected'; } ?>>George Washington University</option>
-<option value="George Washington University Himmelfarb Health Sciences Library" <?php if ($location == "George Washington University Himmelfarb Health Sciences Library") { echo 'selected'; } ?>>George Washington University Himmelfarb Health Sciences Library</option>
-<option value="George Washington University Jacob Burns Law Library" <?php if ($location == "George Washington University Jacob Burns Law Library") { echo 'selected'; } ?>>George Washington University Jacob Burns Law Library</option>
-<option value="Georgetown University" <?php if ($location == "Georgetown University") { echo 'selected'; } ?>>Georgetown University</option>
-<option value="Georgetown University Law Library" <?php if ($location == "Georgetown University Law Library") { echo 'selected'; } ?>>Georgetown University Law Library</option>
-<option value="Howard University" <?php if ($location == "Howard University") { echo 'selected'; } ?>>Howard University</option>
-<option value="Marymount University" <?php if ($location == "Marymount University") { echo 'selected'; } ?>>Marymount University</option>
-<option value="Shared Collections Facility" <?php if ($location == "Shared Collections Facility") { echo 'selected'; } ?>>Shared Collections Facility</option>
-<option value="University of the District of Columbia" <?php if ($location == "University of the District of Columbia") { echo 'selected'; } ?>>University of the District of Columbia</option>
-<option value="University of the District of Columbia, Law School" <?php if ($location == "University of the District of Columbia, Law School") { echo 'selected'; } ?>>University of the District of Columbia, Law School</option>
+                                    <option value="all" <?php if ($location == "all") {
+                                        echo 'selected';
+                                                        } ?>>All</option>
+<option value="NULL" <?php if ($location == "NULL") {
+    echo 'selected';
+                     } ?>>Anonymized Loan</option>
+<option value="American University" <?php if ($location == "American University") {
+    echo 'selected';
+                                    } ?>>American University</option>
+<option value="American University Washington College of Law" <?php if ($location == "American University Washington College of Law") {
+    echo 'selected';
+                                                              } ?>>American University Washington College of Law</option>
+<option value="American University Washington College of Law Library" <?php if ($location == "American University Washington College of Law Library") {
+    echo 'selected';
+                                                                      } ?>>American University Washington College of Law Library</option>
+<option value="Catholic University of America" <?php if ($location == "Catholic University of America") {
+    echo 'selected';
+                                               } ?>>Catholic University of America</option>
+<option value="Gallaudet University" <?php if ($location == "Gallaudet University") {
+    echo 'selected';
+                                     } ?>>Gallaudet University</option>
+<option value="George Mason University Libraries" <?php if ($location == "George Mason University Libraries") {
+    echo 'selected';
+                                                  } ?>>George Mason University Libraries</option>
+<option value="George Washington University" <?php if ($location == "George Washington University") {
+    echo 'selected';
+                                             } ?>>George Washington University</option>
+<option value="George Washington University Himmelfarb Health Sciences Library" <?php if ($location == "George Washington University Himmelfarb Health Sciences Library") {
+    echo 'selected';
+                                                                                } ?>>George Washington University Himmelfarb Health Sciences Library</option>
+<option value="George Washington University Jacob Burns Law Library" <?php if ($location == "George Washington University Jacob Burns Law Library") {
+    echo 'selected';
+                                                                     } ?>>George Washington University Jacob Burns Law Library</option>
+<option value="Georgetown University" <?php if ($location == "Georgetown University") {
+    echo 'selected';
+                                      } ?>>Georgetown University</option>
+<option value="Georgetown University Law Library" <?php if ($location == "Georgetown University Law Library") {
+    echo 'selected';
+                                                  } ?>>Georgetown University Law Library</option>
+<option value="Howard University" <?php if ($location == "Howard University") {
+    echo 'selected';
+                                  } ?>>Howard University</option>
+<option value="Marymount University" <?php if ($location == "Marymount University") {
+    echo 'selected';
+                                     } ?>>Marymount University</option>
+<option value="Shared Collections Facility" <?php if ($location == "Shared Collections Facility") {
+    echo 'selected';
+                                            } ?>>Shared Collections Facility</option>
+<option value="University of the District of Columbia" <?php if ($location == "University of the District of Columbia") {
+    echo 'selected';
+                                                       } ?>>University of the District of Columbia</option>
+<option value="University of the District of Columbia, Law School" <?php if ($location == "University of the District of Columbia, Law School") {
+    echo 'selected';
+                                                                   } ?>>University of the District of Columbia, Law School</option>
                                 </select>
                             </div>
 

@@ -52,17 +52,19 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
         // Get the API key from the environment
         $apikey = $apikeyinteractive;
 
-        if($location=='all') $location = '';
+        if ($location == 'all') {
+            $location = '';
+        }
        // if($lenderlocation=='all') $lenderlocation = '';
 
         // Build the URL with dynamic start date, end date, and location
         // $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20rpt_IPEDSytdlibx_GAborrower_2&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22equal%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Details%22.%22Loans%20-%20Linked%20From%20Institution%20Name%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
        // $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20rpt_clsreq&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Request%20Date%22.%22Request%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAll%22%3E%3Csawx:expr%20xsi:type=%22sawx:columnExpression%22%20formulaUse=%22display%22%20displayUse=%22display%22%3E%3Csaw:columnFormula%20formulaUse=%22display%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Institution%22.%22Institution%20Name%22%3C/sawx:expr%3E%3C/saw:columnFormula%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
     // $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20-%20Interactive%20-%20WRLC%20Consortium%20Loans%20Filled%20by%20Institution&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22equal%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Borrower%20Details%22.%22User%20-%20Linked%20From%20Institution%20Name%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
-    $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20-%20Interactive%20-%20WRLC%20Consortium%20Loans%20Filled%20by%20Lender%20Institution&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22equal%22%3E%3Csawx:expr%20xsi:type=%22sawx:columnExpression%22%20formulaUse=%22code%22%20displayUse=%22display%22%3E%3Csaw:columnFormula%20formulaUse=%22display%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Institution%22.%22Institution%20Name%22%3C/sawx:expr%3E%3C/saw:columnFormula%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:decimal%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
-      
-        
-      
+        $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20-%20Interactive%20-%20WRLC%20Consortium%20Loans%20Filled%20by%20Lender%20Institution&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22equal%22%3E%3Csawx:expr%20xsi:type=%22sawx:columnExpression%22%20formulaUse=%22code%22%20displayUse=%22display%22%3E%3Csaw:columnFormula%20formulaUse=%22display%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Institution%22.%22Institution%20Name%22%3C/sawx:expr%3E%3C/saw:columnFormula%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:decimal%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
+
+
+
         // Parse the URL to extract the query string
         $parsedUrl = parse_url($url);
         parse_str($parsedUrl['query'], $queryParams);
@@ -136,8 +138,8 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
     $startDate = isset($_POST['start_date']) ? $_POST['start_date'] : '';
     $endDate = isset($_POST['end_date']) ? $_POST['end_date'] : '';
     $location = isset($_POST['location']) ? $_POST['location'] : '';
-   
-   
+
+
     $xmlData = null;
     $csvFileName = '';
 
@@ -176,23 +178,57 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
 
                                     
                                     
-                                    <option value="4102" <?php if ($location == "4102") { echo 'selected'; } ?>>American University</option>
-<option value="4114" <?php if ($location == "4114") { echo 'selected'; } ?>>American University Washington College of Law</option>
-<option value="4103" <?php if ($location == "4103") { echo 'selected'; } ?>>Catholic University of America</option>
-<option value="8086" <?php if ($location == "8086") { echo 'selected'; } ?>>Catholic University of America Columbus School of Law</option>
-<option value="4104" <?php if ($location == "4104") { echo 'selected'; } ?>>Gallaudet University</option>
-<option value="4105" <?php if ($location == "4105") { echo 'selected'; } ?>>George Mason University Libraries</option>
-<option value="4107" <?php if ($location == "4107") { echo 'selected'; } ?>>George Washington University</option>
-<option value="4110" <?php if ($location == "4110") { echo 'selected'; } ?>>George Washington University Himmelfarb Health Sciences Library</option>
-<option value="4112" <?php if ($location == "4112") { echo 'selected'; } ?>>George Washington University Jacob Burns Law Library</option>
-<option value="4111" <?php if ($location == "4111") { echo 'selected'; } ?>>Georgetown University</option>
-<option value="4113" <?php if ($location == "4113") { echo 'selected'; } ?>>Georgetown University Law Library</option>
-<option value="4109" <?php if ($location == "4109") { echo 'selected'; } ?>>Howard University</option>
-<option value="4106" <?php if ($location == "4106") { echo 'selected'; } ?>>Marymount University</option>
-<option value="4617" <?php if ($location == "4617") { echo 'selected'; } ?>>Shared Collections Facility</option>
-<option value="4108" <?php if ($location == "4108") { echo 'selected'; } ?>>University of the District of Columbia</option>
-<option value="4118" <?php if ($location == "4118") { echo 'selected'; } ?>>University of the District of Columbia, Law School</option>
-<option value="4101" <?php if ($location == "4101") { echo 'selected'; } ?>>Washington Research Library Consortium (WRLC) Network</option>
+                                    <option value="4102" <?php if ($location == "4102") {
+                                        echo 'selected';
+                                                         } ?>>American University</option>
+<option value="4114" <?php if ($location == "4114") {
+    echo 'selected';
+                     } ?>>American University Washington College of Law</option>
+<option value="4103" <?php if ($location == "4103") {
+    echo 'selected';
+                     } ?>>Catholic University of America</option>
+<option value="8086" <?php if ($location == "8086") {
+    echo 'selected';
+                     } ?>>Catholic University of America Columbus School of Law</option>
+<option value="4104" <?php if ($location == "4104") {
+    echo 'selected';
+                     } ?>>Gallaudet University</option>
+<option value="4105" <?php if ($location == "4105") {
+    echo 'selected';
+                     } ?>>George Mason University Libraries</option>
+<option value="4107" <?php if ($location == "4107") {
+    echo 'selected';
+                     } ?>>George Washington University</option>
+<option value="4110" <?php if ($location == "4110") {
+    echo 'selected';
+                     } ?>>George Washington University Himmelfarb Health Sciences Library</option>
+<option value="4112" <?php if ($location == "4112") {
+    echo 'selected';
+                     } ?>>George Washington University Jacob Burns Law Library</option>
+<option value="4111" <?php if ($location == "4111") {
+    echo 'selected';
+                     } ?>>Georgetown University</option>
+<option value="4113" <?php if ($location == "4113") {
+    echo 'selected';
+                     } ?>>Georgetown University Law Library</option>
+<option value="4109" <?php if ($location == "4109") {
+    echo 'selected';
+                     } ?>>Howard University</option>
+<option value="4106" <?php if ($location == "4106") {
+    echo 'selected';
+                     } ?>>Marymount University</option>
+<option value="4617" <?php if ($location == "4617") {
+    echo 'selected';
+                     } ?>>Shared Collections Facility</option>
+<option value="4108" <?php if ($location == "4108") {
+    echo 'selected';
+                     } ?>>University of the District of Columbia</option>
+<option value="4118" <?php if ($location == "4118") {
+    echo 'selected';
+                     } ?>>University of the District of Columbia, Law School</option>
+<option value="4101" <?php if ($location == "4101") {
+    echo 'selected';
+                     } ?>>Washington Research Library Consortium (WRLC) Network</option>
                                 </select>
                             </div>
 
