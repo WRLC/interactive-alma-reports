@@ -101,9 +101,9 @@ function fetchXmlData(string $startDate, string $endDate, string $location, stri
     // Execute cURL and get the response
     $output = curl_exec($curlHandler);
 
-        if (curl_errno($curlHandler)) {
-            echo 'Curl error: ' . curl_error($curlHandler);
-        }
+    if (curl_errno($curlHandler)) {
+        echo 'Curl error: ' . curl_error($curlHandler);
+    }
         curl_close($curlHandler);
 
 

@@ -154,8 +154,6 @@ if ($startDate && $endDate && $location) {
     // Generate CSV if we have XML data
     if ($xmlData) {
         $csvFileName = generateCSV($xmlData);
-
-
     }
 }
 ?>
