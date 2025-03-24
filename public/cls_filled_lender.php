@@ -92,6 +92,7 @@ function fetchXmlData(string $startDate, string $endDate, string $location, stri
             </div>
          </div>';
 
+
     // Initialize cURL
     $curlHandler  = curl_init();
     curl_setopt($curlHandler, CURLOPT_URL, $url);
@@ -99,6 +100,55 @@ function fetchXmlData(string $startDate, string $endDate, string $location, stri
 
     // Execute cURL and get the response
     $output = curl_exec($curlHandler);
+
+        if ($location == 'all') {
+            $location = '';
+        }
+       // if($lenderlocation=='all') $lenderlocation = '';
+
+        // Build the URL with dynamic start date, end date, and location
+        // $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20rpt_IPEDSytdlibx_GAborrower_2&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22equal%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Details%22.%22Loans%20-%20Linked%20From%20Institution%20Name%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
+       // $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20rpt_clsreq&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Request%20Date%22.%22Request%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAll%22%3E%3Csawx:expr%20xsi:type=%22sawx:columnExpression%22%20formulaUse=%22display%22%20displayUse=%22display%22%3E%3Csaw:columnFormula%20formulaUse=%22display%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Institution%22.%22Institution%20Name%22%3C/sawx:expr%3E%3C/saw:columnFormula%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
+    // $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20-%20Interactive%20-%20WRLC%20Consortium%20Loans%20Filled%20by%20Institution&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22equal%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Borrower%20Details%22.%22User%20-%20Linked%20From%20Institution%20Name%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
+        $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20-%20Interactive%20-%20WRLC%20Consortium%20Loans%20Filled%20by%20Lender%20Institution&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22equal%22%3E%3Csawx:expr%20xsi:type=%22sawx:columnExpression%22%20formulaUse=%22code%22%20displayUse=%22display%22%3E%3Csaw:columnFormula%20formulaUse=%22display%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Institution%22.%22Institution%20Name%22%3C/sawx:expr%3E%3C/saw:columnFormula%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:decimal%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
+
+
+
+        // Parse the URL to extract the query string
+        $parsedUrl = parse_url($url);
+        parse_str($parsedUrl['query'], $queryParams);
+
+        // Get the 'path' parameter and decode it for display
+        $pathValue = urldecode($queryParams['path']);
+
+        // Display the report path it as an <h2>
+
+        echo '<p>
+  
+  <button class="btn btn-info btn-sm mt-3 ml-5" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Report Info
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body"><p><strong>Analytics Path:</strong> 
+   ' . htmlspecialchars($pathValue) . '</p>
+  </div>
+</div>';
+
+
+        // Initialize cURL
+        $curlHandler  = curl_init();
+        curl_setopt($curlHandler, CURLOPT_URL, $url);
+        curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, 1);
+
+        // Execute cURL and get the response
+        $output = curl_exec($curlHandler);
+
+        if (curl_errno($curlHandler)) {
+            echo 'Curl error: ' . curl_error($curlHandler);
+        }
+        curl_close($curlHandler);
+
 
     if (curl_errno($curlHandler)) {
         echo 'Curl error: ' . curl_error($curlHandler);
@@ -154,6 +204,7 @@ if ($startDate && $endDate && $location) {
     }
 }
 ?>
+
 
 <div class="container">
     <div class="row justify-content-center">
@@ -236,6 +287,115 @@ if ($startDate && $endDate && $location) {
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <a class="btn btn-danger" href="">Clear</a>
                     </form>
+
+    // Get form data
+    $startDate = isset($_POST['start_date']) ? $_POST['start_date'] : '';
+    $endDate = isset($_POST['end_date']) ? $_POST['end_date'] : '';
+    $location = isset($_POST['location']) ? $_POST['location'] : '';
+
+
+    $xmlData = null;
+    $csvFileName = '';
+
+    if ($startDate && $endDate && $location) {
+        $xmlData = fetchXmlData($startDate, $endDate, $location, $api_key_interactive);
+        // Generate CSV if we have XML data
+        if ($xmlData) {
+            $csvFileName = generateCSV($xmlData);
+        }
+    }
+
+    ?>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 mt-4 d-print-none">
+                <h2 class="text-center"><?php echo $page_title; ?></h2>
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h5>Select Date Range and Location</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="" id="dateForm">
+                            <div class="mb-3">
+                                <label for="start_date" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" id="start_date" name="start_date" value="<?php echo $startDate; ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="end_date" class="form-label">End Date</label>
+                                <input type="date" class="form-control" id="end_date" name="end_date" value="<?php echo $endDate; ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="location" class="form-label">Lender Institution</label>
+                                <select class="form-control" id="location" name="location" required>
+                                    <option value="8" disabled selected>Select a Lender Institution</option>
+
+                                    
+                                    
+                                    <option value="4102" <?php if ($location == "4102") {
+                                        echo 'selected';
+                                                         } ?>>American University</option>
+<option value="4114" <?php if ($location == "4114") {
+    echo 'selected';
+                     } ?>>American University Washington College of Law</option>
+<option value="4103" <?php if ($location == "4103") {
+    echo 'selected';
+                     } ?>>Catholic University of America</option>
+<option value="8086" <?php if ($location == "8086") {
+    echo 'selected';
+                     } ?>>Catholic University of America Columbus School of Law</option>
+<option value="4104" <?php if ($location == "4104") {
+    echo 'selected';
+                     } ?>>Gallaudet University</option>
+<option value="4105" <?php if ($location == "4105") {
+    echo 'selected';
+                     } ?>>George Mason University Libraries</option>
+<option value="4107" <?php if ($location == "4107") {
+    echo 'selected';
+                     } ?>>George Washington University</option>
+<option value="4110" <?php if ($location == "4110") {
+    echo 'selected';
+                     } ?>>George Washington University Himmelfarb Health Sciences Library</option>
+<option value="4112" <?php if ($location == "4112") {
+    echo 'selected';
+                     } ?>>George Washington University Jacob Burns Law Library</option>
+<option value="4111" <?php if ($location == "4111") {
+    echo 'selected';
+                     } ?>>Georgetown University</option>
+<option value="4113" <?php if ($location == "4113") {
+    echo 'selected';
+                     } ?>>Georgetown University Law Library</option>
+<option value="4109" <?php if ($location == "4109") {
+    echo 'selected';
+                     } ?>>Howard University</option>
+<option value="4106" <?php if ($location == "4106") {
+    echo 'selected';
+                     } ?>>Marymount University</option>
+<option value="4617" <?php if ($location == "4617") {
+    echo 'selected';
+                     } ?>>Shared Collections Facility</option>
+<option value="4108" <?php if ($location == "4108") {
+    echo 'selected';
+                     } ?>>University of the District of Columbia</option>
+<option value="4118" <?php if ($location == "4118") {
+    echo 'selected';
+                     } ?>>University of the District of Columbia, Law School</option>
+<option value="4101" <?php if ($location == "4101") {
+    echo 'selected';
+                     } ?>>Washington Research Library Consortium (WRLC) Network</option>
+                                </select>
+                            </div>
+
+
+
+                           
+
+
+
+                            <button type="submit" class="btn btn-primary">Submit</button> <a class="btn btn-danger" href="">Clear</a>
+                        </form>
+                    </div>
+
                 </div>
             </div>
         </div>

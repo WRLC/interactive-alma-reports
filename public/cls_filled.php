@@ -56,6 +56,7 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
 
 <body>
 
+
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -69,6 +70,73 @@ function fetchXmlData(string $startDate, string $endDate, string $location, stri
     // To select all libraries, $location is empty
     if ($location == 'all') {
         $location = '';
+=======
+    <?php
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+    //Define the page title to display and to nave the CSV file
+
+
+    // Function to fetch XML data via cURL
+    function fetchXmlData(string $startDate, string $endDate, string $location, string $apikeyinteractive): SimpleXMLElement
+    {
+
+        // Get the API key from the environment
+        $apikey = $apikeyinteractive;
+
+        if ($location == 'all') {
+            $location = '';
+        }
+       // if($lenderlocation=='all') $lenderlocation = '';
+
+        // Build the URL with dynamic start date, end date, and location
+        // $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20rpt_IPEDSytdlibx_GAborrower_2&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22equal%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Details%22.%22Loans%20-%20Linked%20From%20Institution%20Name%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
+       // $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20rpt_clsreq&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Request%20Date%22.%22Request%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAll%22%3E%3Csawx:expr%20xsi:type=%22sawx:columnExpression%22%20formulaUse=%22display%22%20displayUse=%22display%22%3E%3Csaw:columnFormula%20formulaUse=%22display%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Institution%22.%22Institution%20Name%22%3C/sawx:expr%3E%3C/saw:columnFormula%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
+        $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20-%20Interactive%20-%20WRLC%20Consortium%20Loans%20Filled%20by%20Institution&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22equal%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Borrower%20Details%22.%22User%20-%20Linked%20From%20Institution%20Name%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
+      //$url ='https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20-%20Interactive%20-%20WRLC%20Consortium%20Loans%20Filled%20by%20Institution&limit=1000&col_names=false&apikey=l7xxca4a1f8c94254144b052be63d398bf98&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E%27' . $startDate . '%27%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E%27' . $endDate . '%27%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22equal%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Borrower%20Details%22.%22User%20-%20Linked%20From%20Institution%20Name%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E%27' . urlencode($location) . '%27%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22equal%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Borrower%20Details%22.%22Linked%20From%20Institution%20Name%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:string%22%3E%27' . urlencode($lenderlocation) . '%27%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
+
+
+
+
+        // Parse the URL to extract the query string
+        $parsedUrl = parse_url($url);
+        parse_str($parsedUrl['query'], $queryParams);
+
+        // Get the 'path' parameter and decode it for display
+        $pathValue = urldecode($queryParams['path']);
+
+        // Display the report path it as an <h2>
+
+        echo '<p>
+  
+  <button class="btn btn-info btn-sm mt-3 ml-5" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Report Info
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body"><p><strong>Analytics Path:</strong> 
+   ' . htmlspecialchars($pathValue) . '</p>
+  </div>
+</div>';
+
+
+        // Initialize cURL
+        $curlHandler  = curl_init();
+        curl_setopt($curlHandler, CURLOPT_URL, $url);
+        curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, 1);
+
+        // Execute cURL and get the response
+        $output = curl_exec($curlHandler);
+
+        if (curl_errno($curlHandler)) {
+            echo 'Curl error: ' . curl_error($curlHandler);
+        }
+        curl_close($curlHandler);
+
+        // Parse the XML response
+        return simplexml_load_string($output);
+
     }
     // URL for API
    // $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20-%20Interactive%20-%20WRLC%20Consortium%20Loans%20Filled%20by%20Lender%20Institution&limit=1000&col_names=false&apikey=' . $apikey . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%20%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Loan%20Date%22.%22Loan%20Date%22%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22equal%22%3E%3Csawx:expr%20xsi:type=%22sawx:columnExpression%22%20formulaUse=%22code%22%20displayUse=%22display%22%3E%3Csaw:columnFormula%20formulaUse=%22display%22%3E%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Institution%22.%22Institution%20Name%22%3C/sawx:expr%3E%3C/saw:columnFormula%3E%3C/sawx:expr%3E%3Csawx:expr%20xsi:type=%22xsd:decimal%22%3E' . urlencode($location) . '%3C/sawx:expr%3E%3C/sawx:expr%3E%3C/sawx:expr%3E';
@@ -147,11 +215,29 @@ $location  = isset($_POST['location']) ? $_POST['location'] : '';
 $xmlData    = null;
 $csvFileName = '';
 
+
 if ($startDate && $endDate && $location) {
     $xmlData = fetchXmlData($startDate, $endDate, $location, $api_key_interactive);
     // Generate CSV if we have XML data
     if ($xmlData) {
         $csvFileName = generateCSV($xmlData);
+
+    // Get form data
+    $startDate = isset($_POST['start_date']) ? $_POST['start_date'] : '';
+    $endDate = isset($_POST['end_date']) ? $_POST['end_date'] : '';
+    $location = isset($_POST['location']) ? $_POST['location'] : '';
+
+
+    $xmlData = null;
+    $csvFileName = '';
+
+    if ($startDate && $endDate && $location) {
+        $xmlData = fetchXmlData($startDate, $endDate, $location, $api_key_interactive);
+        // Generate CSV if we have XML data
+        if ($xmlData) {
+            $csvFileName = generateCSV($xmlData);
+        }
+
     }
 }
 ?>
