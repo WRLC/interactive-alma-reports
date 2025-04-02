@@ -13,6 +13,7 @@
 namespace PHP_CodeSniffer;
 
 use Exception;
+use InvalidArgumentException;
 use PHP_CodeSniffer\Exceptions\DeepExitException;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\DummyFile;
@@ -350,7 +351,7 @@ class Runner
                 $this->ruleset->showSniffDeprecations();
             }
         } catch (RuntimeException $e) {
-            $error  = 'ERROR: '.$e->getMessage().PHP_EOL.PHP_EOL;
+            $error  = rtrim($e->getMessage(), "\r\n").PHP_EOL.PHP_EOL;
             $error .= $this->config->printShortUsage(true);
             throw new DeepExitException($error, 3);
         }
@@ -688,16 +689,23 @@ class Runner
             }
 
             if (empty($sniffStack) === false) {
-                if (empty($nextStack) === false
-                    && isset($nextStack['class']) === true
-                    && substr($nextStack['class'], -5) === 'Sniff'
-                ) {
-                    $sniffCode = Common::getSniffCode($nextStack['class']);
-                } else {
+                $sniffCode = '';
+                try {
+                    if (empty($nextStack) === false
+                        && isset($nextStack['class']) === true
+                        && substr($nextStack['class'], -5) === 'Sniff'
+                    ) {
+                        $sniffCode = 'the '.Common::getSniffCode($nextStack['class']).' sniff';
+                    }
+                } catch (InvalidArgumentException $e) {
+                    // Sniff code could not be determined. This may be an abstract sniff class.
+                }
+
+                if ($sniffCode === '') {
                     $sniffCode = substr(strrchr(str_replace('\\', '/', $sniffStack['file']), '/'), 1);
                 }
 
-                $error .= sprintf(PHP_EOL.'The error originated in the %s sniff on line %s.', $sniffCode, $sniffStack['line']);
+                $error .= sprintf(PHP_EOL.'The error originated in %s on line %s.', $sniffCode, $sniffStack['line']);
             }
 
             $file->addErrorOnLine($error, 1, 'Internal.Exception');
