@@ -44,7 +44,7 @@ function fetchXmlData(string $startDate, string $endDate, string $apikeyinteract
 
     $curlHandler = curl_init();
     curl_setopt($curlHandler, CURLOPT_URL, $url);
-    curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, true);
     $output = curl_exec($curlHandler);
     if (curl_errno($curlHandler)) {
         echo 'Curl error: ' . curl_error($curlHandler);
