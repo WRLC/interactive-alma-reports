@@ -33,8 +33,8 @@ function fetchXmlData(string $startDate, string $endDate, string $apikeyinteract
          . '%20xmlns:xsi=%22http://www.w3.org/2001/XMLSchema-instance%22'
          . '%20xmlns:xsd=%22http://www.w3.org/2001/XMLSchema%22%3E%3Csawx:expr%3E'
          . '%3Csawx:expr%20xsi:type=%22sawx:comparison%22%20op=%22between%22%3E'
-         . '%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Lending%20Creation%20Date%22.'
-         . '%22Lending%20Creation%20Date%22%3C/sawx:expr%3E'
+         . '%3Csawx:expr%20xsi:type=%22sawx:sqlExpression%22%3E%22Borrowing%20Creation%20Date%22.'
+         . '%22Borrowing%20Creation%20Date%22%3C/sawx:expr%3E'
          . '%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $startDate . '%3C/sawx:expr%3E'
          . '%3Csawx:expr%20xsi:type=%22xsd:date%22%3E' . $endDate . '%3C/sawx:expr%3E%3C/sawx:expr%3E'
          . '%3C/sawx:expr%3E%3C/sawx:expr%3E';
@@ -60,7 +60,7 @@ function generateCSV(SimpleXMLElement $xmlData): string
     $csvFileName = 'export.csv';
     $csvFilePath = __DIR__ . '/' . $csvFileName;
     $file = fopen($csvFilePath, 'w');
-    fputcsv($file, ['Lender Institution', 'Request Type', 'Borrower', 'Request Status', 'Avg Hours Request Created to Sent Material', 'Count']);
+    fputcsv($file, ['Institution', 'Request Type', 'Borrower', 'Borrowing Request Type', 'Avg Hours Request Created to Sent Material', 'Count']);
     if (isset($xmlData->QueryResult->ResultXml->rowset)) {
         foreach ($xmlData->QueryResult->ResultXml->rowset as $rowset) {
             if (isset($rowset->Row)) {
@@ -240,9 +240,9 @@ if (isset($pathurl)) {
                     <table class="table table-bordered table-sm">
                         <thead class="thead-dark">
                         <tr>
-                            <th>Lender Institution</th>
+                            <th>Institution</th>
                             <th>Request Status</th>
-                            <th>Request Type</th>
+                            <th>Borrowing Request Status</th>
                             <th>Avg Hours Request Created to Sent Material</th>
                             <?php foreach ($distinctColumn3 as $col3Val) : ?>
                                 <th><?php echo htmlspecialchars($col3Val); ?></th>
