@@ -17,12 +17,16 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // ------------------ FUNCTION TO FETCH XML DATA ------------------
-function fetchXmlData(string $startDate, string $endDate, string $apikeyinteractive): ?SimpleXMLElement {
+/**
+ * @SuppressWarnings(PHPMD.Superglobals)
+ */
+function fetchXmlData(string $startDate, string $endDate, string $apikeyinteractive): ?SimpleXMLElement
+{
     $url = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/analytics/reports?'
          . 'path=%2Fshared%2FWashington%20Research%20Library%20Consortium%20(WRLC)%20Network%2FReports%2FAPI%2FAPI%20-%20rpt_TotalBorrowingSUNY'
          . '&limit=1000'
          . '&col_names=false'
-         . '&apikey='.$apikeyinteractive
+         . '&apikey=' . $apikeyinteractive
          . '&filter=%3Csawx:expr%20xsi:type=%22sawx:list%22%20op=%22containsAny%22'
          . '%20xmlns:saw=%22com.siebel.analytics.web/report/v1.1%22'
          . '%20xmlns:sawx=%22com.siebel.analytics.web/expression/v1.1%22'
@@ -51,7 +55,8 @@ function fetchXmlData(string $startDate, string $endDate, string $apikeyinteract
 }
 
 // ------------------ FUNCTION TO GENERATE RAW CSV ------------------
-function generateCSV(SimpleXMLElement $xmlData): string {
+function generateCSV(SimpleXMLElement $xmlData): string
+{
     $csvFileName = 'export.csv';
     $csvFilePath = __DIR__ . '/' . $csvFileName;
     $file = fopen($csvFilePath, 'w');
@@ -82,6 +87,7 @@ $endDate   = $_POST['end_date'] ?? '';
 $xmlData = null;
 $csvFileName = '';
 if ($startDate && $endDate) {
+    /** @phpstan-ignore arguments.count */
     $xmlData = fetchXmlData($startDate, $endDate, $api_key_interactive);
     if ($xmlData) {
         $csvFileName = generateCSV($xmlData);
@@ -166,15 +172,15 @@ $page_title = 'SUNY - Borrowing Requests';
 
 <?php
 ///////////// Display Path to Report ////////////////////
-if(isset($pathurl)) {
+if (isset($pathurl)) {
  // Parse the URL to extract the query string
- $parsedUrl = parse_url($pathurl);
- parse_str($parsedUrl['query'], $queryParams);
+    $parsedUrl = parse_url($pathurl);
+    parse_str($parsedUrl['query'], $queryParams);
 
  // Get the 'path' parameter and decode it for display
- $pathValue = urldecode($queryParams['path']);
+    $pathValue = urldecode($queryParams['path']);
  // Display the report path as an <h2>
- echo '<p>
+    echo '<p>
  <button class="btn btn-info btn-sm mt-3 ml-5" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
      Report Info
  </button>
@@ -259,7 +265,7 @@ if(isset($pathurl)) {
                                 $lenderRowCount += count($reqTypes) + 1;
                             }
                             $lenderRowCount += 1;
-                            
+
                             $firstC1 = true;
                             $groupTotals = array_fill_keys($distinctColumn3, 0.0);
                             $groupRowTotal = 0.0;
@@ -301,7 +307,7 @@ if(isset($pathurl)) {
                                 echo "<tr class='subtotal-row'>";
                                 // Instead of a blank cell in the Lender Institution column, we now output a blank cell to align totals with data rows.
                                 // Then in the Request Status column output the subtotal text, then one blank cell for Request Type and one for Time.
-                              //  echo "<td></td>"; 
+                              //  echo "<td></td>";
                                 echo "<td>Subtotal for " . htmlspecialchars($status) . "</td>";
                                 echo "<td></td>";
                                 echo "<td></td>";
@@ -313,7 +319,7 @@ if(isset($pathurl)) {
                             }
                             // Output Lender Institution total row
                             echo "<tr class='subtotal-row'>";
-                            
+
                             echo "<td>Total for " . htmlspecialchars($c1Val) . "</td>";
                             echo "<td></td>";
                             echo "<td></td>";
