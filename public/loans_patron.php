@@ -88,7 +88,7 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
         // Initialize cURL
         $curlHandler  = curl_init();
         curl_setopt($curlHandler, CURLOPT_URL, $url);
-        curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, true);
 
         // Execute cURL and get the response
         $output = curl_exec($curlHandler);
