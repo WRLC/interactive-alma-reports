@@ -45,10 +45,10 @@ final class BackfillFnTokenTest extends AbstractTokenizerTestCase
     {
         return [
             'standard'   => [
-                'testMarker'  => '/* testStandard */',
+                'testMarker' => '/* testStandard */',
             ],
             'mixed case' => [
-                'testMarker'  => '/* testMixedCase */',
+                'testMarker' => '/* testMixedCase */',
             ],
         ];
 
@@ -362,35 +362,35 @@ final class BackfillFnTokenTest extends AbstractTokenizerTestCase
 
 
     /**
-     * Test arrow functions that use nullable namespace types.
+     * Test arrow functions that use nullable type with unqualified class name.
      *
      * @covers PHP_CodeSniffer\Tokenizers\PHP::processAdditional
      *
      * @return void
      */
-    public function testNullableNamespace()
+    public function testNullableUnqualifiedClassName()
     {
-        $token = $this->getTargetToken('/* testNullableNamespace */', T_FN);
+        $token = $this->getTargetToken('/* testNullableUnqualifiedClassName */', T_FN);
         $this->backfillHelper($token);
         $this->scopePositionTestHelper($token, 15, 18);
 
-    }//end testNullableNamespace()
+    }//end testNullableUnqualifiedClassName()
 
 
     /**
-     * Test arrow functions that use the namespace operator in the return type.
+     * Test arrow functions that use namespace relative class name in the return type.
      *
      * @covers PHP_CodeSniffer\Tokenizers\PHP::processAdditional
      *
      * @return void
      */
-    public function testNamespaceOperatorInTypes()
+    public function testNamespaceRelativeClassNameInTypes()
     {
-        $token = $this->getTargetToken('/* testNamespaceOperatorInTypes */', T_FN);
+        $token = $this->getTargetToken('/* testNamespaceRelativeClassNameInTypes */', T_FN);
         $this->backfillHelper($token);
         $this->scopePositionTestHelper($token, 16, 19);
 
-    }//end testNamespaceOperatorInTypes()
+    }//end testNamespaceRelativeClassNameInTypes()
 
 
     /**
@@ -423,28 +423,28 @@ final class BackfillFnTokenTest extends AbstractTokenizerTestCase
     {
         return [
             'self'     => [
-                'testMarker'  => '/* testSelfReturnType */',
+                'testMarker' => '/* testSelfReturnType */',
             ],
             'parent'   => [
-                'testMarker'  => '/* testParentReturnType */',
+                'testMarker' => '/* testParentReturnType */',
             ],
             'callable' => [
-                'testMarker'  => '/* testCallableReturnType */',
+                'testMarker' => '/* testCallableReturnType */',
             ],
             'array'    => [
-                'testMarker'  => '/* testArrayReturnType */',
+                'testMarker' => '/* testArrayReturnType */',
             ],
             'static'   => [
-                'testMarker'  => '/* testStaticReturnType */',
+                'testMarker' => '/* testStaticReturnType */',
             ],
             'false'    => [
-                'testMarker'  => '/* testFalseReturnType */',
+                'testMarker' => '/* testFalseReturnType */',
             ],
             'true'     => [
-                'testMarker'  => '/* testTrueReturnType */',
+                'testMarker' => '/* testTrueReturnType */',
             ],
             'null'     => [
-                'testMarker'  => '/* testNullReturnType */',
+                'testMarker' => '/* testNullReturnType */',
             ],
         ];
 
