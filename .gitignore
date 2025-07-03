@@ -4,3 +4,4 @@
 .phpdoc
 *.csv
 .phpcs-cache
+.DS_Store
