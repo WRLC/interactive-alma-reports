@@ -1,0 +1,3 @@
+Changes to the nginx vhost used by Azure App Service (e.g., changing the www root folder) should be placed in a file named `default` in this folder.
+
+The contents of `default` must be a COMPLETE vhost compatible with Azure App Service as it will overwrite the app's default vhost on startup. For best results, start by copying the `/etc/nginx/sites-available/default` file from the App Service container and then make any necessary changes to the file here.
