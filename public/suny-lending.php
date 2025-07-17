@@ -60,7 +60,7 @@ function generateCSV(SimpleXMLElement $xmlData): string
     $csvFileName = 'export.csv';
     $csvFilePath = __DIR__ . '/' . $csvFileName;
     $file = fopen($csvFilePath, 'w');
-    fputcsv($file, ['Lender Institution', 'Request Type', 'Borrower', 'Request Status', 'Avg Hours Request Created to Sent Material', 'Count']);
+    fputcsv($file, ['Lender Institution', 'Request Type', 'Borrower', 'Request Status', 'Avg Hours Request Created to Sent Material', 'Count'], escape: '');
     if (isset($xmlData->QueryResult->ResultXml->rowset)) {
         foreach ($xmlData->QueryResult->ResultXml->rowset as $rowset) {
             if (isset($rowset->Row)) {
@@ -72,7 +72,8 @@ function generateCSV(SimpleXMLElement $xmlData): string
                         (string)$row->Column4,
                         (float)$row->Column7,
                         (float)$row->Column8
-                    ]);
+                    ],
+                    escape: '');
                 }
             }
         }

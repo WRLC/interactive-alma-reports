@@ -92,7 +92,7 @@ $xml_data = false;
         $file = fopen($csvFilePath, 'w');
 
         // Add the CSV headers
-        fputcsv($file, ['Lender Institution', 'Type', 'Total']);
+        fputcsv($file, ['Lender Institution', 'Type', 'Total'], escape: '');
 
         // Add data rows
         foreach ($xmlData->QueryResult->ResultXml->rowset->Row as $row) {
@@ -100,7 +100,8 @@ $xml_data = false;
                 (string)$row->Column3, // Lender Institution
                 (string)$row->Column2, // Type
                 (float)$row->Column4  // Total
-            ]);
+            ],
+            escape: '');
         }
 
         // Close file

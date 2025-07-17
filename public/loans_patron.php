@@ -113,7 +113,7 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
         $file = fopen($csvFilePath, 'w');
 
         // Add the CSV headers
-        fputcsv($file, ['Lender Institution', 'Date', 'Item Count', 'Total']);
+        fputcsv($file, ['Lender Institution', 'Date', 'Item Count', 'Total'], escape: '');
 
         // Add data rows
         foreach ($xmlData->QueryResult->ResultXml->rowset->Row as $row) {
@@ -122,7 +122,8 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
                 (string)$row->Column2, // Date
                 (string)$row->Column5, // Item Count
                 (float)$row->Column7  // Total
-            ]);
+            ],
+            escape: '');
         }
 
         // Close file
