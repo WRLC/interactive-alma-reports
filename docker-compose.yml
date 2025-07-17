@@ -5,8 +5,8 @@ services:
     working_dir: /app
     volumes:
       - ./:/app
-      - ./config/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-      - ./config/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
+      - ./ini_local/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      - ./ini_local/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.interactive_alma_reports.rule=Host(`interactive-alma-reports.wrlc.localhost`)"
