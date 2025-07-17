@@ -105,16 +105,20 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
         $file = fopen($csvFilePath, 'w');
 
         // Add the CSV headers
-        fputcsv($file, ['Lender Institution', 'Borrower Institution', 'Type', 'Total']);
+        fputcsv($file, ['Lender Institution', 'Borrower Institution', 'Type', 'Total'], escape: '');
 
         // Add data rows
         foreach ($xmlData->QueryResult->ResultXml->rowset->Row as $row) {
-            fputcsv($file, [
-                (string)$row->Column1, // Lender Institution
-                (string)$row->Column4, // Borrower Institution
-                (string)$row->Column5, // Type
-                (float)$row->Column7  // Total
-            ]);
+            fputcsv(
+                    $file,
+                    [
+                        (string)$row->Column1, // Lender Institution
+                        (string)$row->Column4, // Borrower Institution
+                        (string)$row->Column5, // Type
+                        (float)$row->Column7,  // Total
+                    ],
+                    escape: ''
+            );
         }
 
         // Close file
@@ -124,16 +128,16 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
     }
 
     // Get form data
-    $startDate = isset($_POST['start_date']) ? $_POST['start_date'] : '';
-    $endDate = isset($_POST['end_date']) ? $_POST['end_date'] : '';
-    $location = isset($_POST['location']) ? $_POST['location'] : '';
+    $startDate = $_POST['start_date'] ?? '';
+    $endDate = $_POST['end_date'] ?? '';
+    $location = $_POST['location'] ?? '';
     $xmlData = null;
     $csvFileName = '';
 
     if ($startDate && $endDate && $location) {
         $xmlData = fetchXmlData($startDate, $endDate, $location, $api_key_interactive);
         // Generate CSV if we have XML data
-        if ($xmlData) {
+        if ($xmlData->queryResult->resultXml) {
             $csvFileName = generateCSV($xmlData);
         }
     }
@@ -240,7 +244,7 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
                 <div class="col-lg-8">
                     <h2 class="text-center"><?php echo $page_title; ?> :
                         <?php if ($xmlData->queryResult->resultXml) {
-                            echo (string)$xmlData->queryResult->resultXml->rowset->Row[0]->Column1;
+                            echo $xmlData->queryResult->resultXml->rowset->Row[0]->Column1;
                         } ?>
                     </h2>
                     
@@ -265,9 +269,9 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
                                 $totalSum += $column7Value; // Sum up Column4 values
                                 ?>
                                 <tr>
-                                    <td><?php echo (string)$row->Column1; ?></td>
-                                    <td><?php echo (string)$row->Column4; ?></td>
-                                    <td><?php echo (string)$row->Column5; ?></td>
+                                    <td><?php echo $row->Column1; ?></td>
+                                    <td><?php echo $row->Column4; ?></td>
+                                    <td><?php echo $row->Column5; ?></td>
                                     <td><?php echo $column7Value; ?></td>
                                 </tr>
                             <?php endforeach; ?>
@@ -298,13 +302,13 @@ $api_key_interactive = $_ENV['API_KEY_INTERACTIVE'];
     <script>
         document.getElementById('dateForm').onsubmit = function() {
             // Show the spinner when form is submitted
-            document.getElementById('loadingSpinner').style.display = 'block';
+            document.getElementById('loadingSpinner').setAttribute("style", "display = 'block'");
         };
 
         <?php if ($xmlData) : ?>
             // Hide the spinner when the table is loaded
-            document.getElementById('loadingSpinner').style.display = 'none';
-            document.getElementById('resultTable').style.display = 'block';
+            document.getElementById('loadingSpinner').setAttribute("style", "display = 'none'");
+            document.getElementById('resultTable').setAttribute("style", "display = 'block'");
         <?php endif; ?>
     </script>
 </body>
