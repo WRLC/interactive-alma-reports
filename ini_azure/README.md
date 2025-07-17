@@ -1,0 +1,1 @@
+PHP configuration changes should be placed in this folder in a `.ini` file. Azure App Service will load them automatically on startup.

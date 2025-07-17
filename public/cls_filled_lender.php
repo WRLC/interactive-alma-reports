@@ -126,7 +126,11 @@ function generateCSV(SimpleXMLElement $xmlData): string
     $file = fopen($csvFilePath, 'w');
 
     // Add the CSV headers
-    fputcsv($file, ['Lender Institution', 'Borrower Institution', 'Count', 'Total Count', 'Lender Total']);
+    fputcsv(
+        $file,
+        ['Lender Institution', 'Borrower Institution', 'Count', 'Total Count', 'Lender Total'],
+        escape: ''
+    );
 
     // Add data rows
     foreach ($xmlData->QueryResult->ResultXml->rowset->Row as $row) {
@@ -136,7 +140,8 @@ function generateCSV(SimpleXMLElement $xmlData): string
             (string)$row->Column4, // Count
             (string)$row->Column5, // Total Count
             (float)$row->Column7  // Lender Total
-        ]);
+        ],
+        escape: '');
     }
 
     // Close file
