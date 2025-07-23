@@ -1,10 +1,9 @@
 #file: noinspection UndefinedAction,UndefinedParamsPresent
-name: Build and deploy to Azure App Service (Prod)
+name: Build and deploy to Azure App Service
 
 on:
   push:
-    tags:
-      - '*'
+    branches: ["main"]
   workflow_dispatch:
 
 env:
