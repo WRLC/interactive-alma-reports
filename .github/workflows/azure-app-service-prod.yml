@@ -22,8 +22,7 @@ name: Build and deploy to Azure App Service (Prod)
 
 on:
   push:
-    tags:
-      - '*'
+    branches: ["main"]
   workflow_dispatch:
 
 env:
